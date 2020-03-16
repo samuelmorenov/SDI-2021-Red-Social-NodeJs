@@ -1,5 +1,11 @@
 module.exports = function (app, swig) {
 
+    app.post("/cancion", function (req, res) {
+        res.send("Canción agregada:" + req.body.nombre + "<br>"
+            + " Género :" + req.body.genero + "<br>"
+            + " Precio: " + req.body.precio);
+    });
+
     app.get('/canciones/agregar', function (req, res) {
         let respuesta = swig.renderFile('views/bagregar.html', {});
         res.send(respuesta);
