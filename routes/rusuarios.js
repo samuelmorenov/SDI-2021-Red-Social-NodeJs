@@ -40,11 +40,18 @@ module.exports = function (app, swig, gestorBD) {
         }
         gestorBD.obtenerUsuarios(criterio, function (usuarios) {
             if (usuarios == null || usuarios.length == 0) {
+                req.session.usuario = null;
                 res.send("No identificado: ");
             } else {
+                req.session.usuario = usuarios[0].email;
                 res.send("identificado");
             }
         });
+    });
+
+    app.get('/desconectarse', function (req, res) {
+        req.session.usuario = null;
+        res.send("Usuario desconectado");
     });
 
 };
