@@ -123,6 +123,21 @@ module.exports = function (app, swig, gestorBD) {
         });
     });
 
+    app.get('/cancion/modificar/:id', function (req, res) {
+        let criterio = { "_id" : gestorBD.mongo.ObjectID(req.params.id) };
+        gestorBD.obtenerCanciones(criterio,function(canciones){
+            if ( canciones == null ){
+                res.send(respuesta);
+            } else {
+                let respuesta = swig.renderFile('views/bcancionModificar.html',
+                    {
+                        cancion : canciones[0]
+                    });
+                res.send(respuesta);
+            }
+        });
+    });
+
     app.post('/cancion/modificar/:id', function (req, res) {
         let id = req.params.id;
         let criterio = {"_id": gestorBD.mongo.ObjectID(id)};
