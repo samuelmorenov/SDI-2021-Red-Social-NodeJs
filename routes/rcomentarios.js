@@ -4,20 +4,17 @@ module.exports = function (app, swig, gestorBD) {
             res.redirect("/identificarse");
             return;
         }
-        ;
-
-            let comentario = {
-                autor: req.session.usuario,
-                texto: req.body.texto,
-                cancion_id: gestorBD.mongo.ObjectID(req.params.cancion_id)
+        let comentario = {
+            autor: req.session.usuario,
+            texto: req.body.texto,
+            cancion_id: gestorBD.mongo.ObjectID(req.params.cancion_id)
+        }
+        gestorBD.insertarComentario(comentario, function (id) {
+            if (id == null) {
+                res.send("Error al insertar comentario");
+            } else {
+                res.send("Agregado el comentario: " + id);
             }
-            gestorBD.insertarComentario(comentario, function (id) {
-                if (id == null) {
-                    res.send("Error al insertar comentario");
-                } else {
-                    res.send("Agregado el comentario: " + id);
-                }
-            });
-
+        });
     });
 };
