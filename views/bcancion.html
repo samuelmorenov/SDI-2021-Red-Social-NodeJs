@@ -12,7 +12,11 @@
             <h2>{{ cancion.nombre }}</h2>
             <p>{{ cancion.autor }}</p>
             <p>{{ cancion.genero }}</p>
-            <button type="button" class="btn btn-primary pull-right">{{ cancion.precio }} €</button>
+
+            <a class="btn btn-primary pull-right"
+               href="/cancion/comprar/{{cancion._id.toString()}}">{{ cancion.precio
+                }} €</a>
+
             <!-- Cambiar el precio por "reproducir" si ya está comprada -->
         </div>
     </div>
@@ -38,7 +42,7 @@
 <!-- Comentarios -->
 <div class="row">
     <div class="media col-xs-10">
-            <h2>Comentarios</h2>
+        <h2>Comentarios</h2>
         <div class="media-body">
             {% for comentario in comentarios %}
             <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3">
