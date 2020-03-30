@@ -1,1 +1,1 @@
-nodemon app.js
+cmd /k nodemon app.js

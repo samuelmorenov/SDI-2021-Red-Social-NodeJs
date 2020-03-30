@@ -78,12 +78,32 @@ module.exports = function (app, swig, gestorBD) {
                     if (comentarios == null) {
                         res.send(respuesta);
                     } else {
-                        let respuesta = swig.renderFile('views/bcancion.html',
-                            {
-                                cancion: canciones[0],
-                                comentarios: comentarios
-                            });
-                        res.send(respuesta);
+                        let criterio = {"usuario": req.session.usuario};
+                        gestorBD.obtenerCompras(criterio, function (compras) {
+                            if (compras == null) {
+                                res.send("Error al listar ");
+                            } else {
+                                let sepuedecomprar = "true";
+                                for (i = 0; i < compras.length; i++) {
+                                    if (req.params.id == compras[i].cancionId) {
+                                        sepuedecomprar = "false";
+                                        //console.log(" - Ya comprada");
+                                    }
+                                }
+                                if (canciones[0].autor == req.session.usuario) {
+                                    sepuedecomprar = "false";
+                                    //console.log(" - Cancion publicada por el usuario");
+                                }
+                                let respuesta = swig.renderFile('views/bcancion.html',
+                                    {
+                                        puedecomprar: sepuedecomprar,
+                                        comentario: comentarios,
+                                        cancion: canciones[0]
+                                    });
+                                res.send(respuesta);
+
+                            }
+                        });
                     }
                 });
             }
