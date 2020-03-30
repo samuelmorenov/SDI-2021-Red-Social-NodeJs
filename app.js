@@ -108,6 +108,7 @@ require("./routes/rcanciones.js")(app, swig, gestorBD);
 require("./routes/rautores.js")(app, swig, gestorBD);
 require("./routes/rcomentarios.js")(app, swig, gestorBD);
 
+
 app.get('/', function (req, res) {
     res.redirect('/tienda');
 });
@@ -117,7 +118,8 @@ app.use(function (err, req, res, next) {
     console.log("Error producido: " + err);
     if (!res.headersSent) {
         res.status(400);
-        res.send("Recurso no disponible");
+        //res.send("Recurso no disponible");
+        res.redirect('/error');
     }
 });
 

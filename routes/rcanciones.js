@@ -195,6 +195,11 @@ module.exports = function (app, swig, gestorBD) {
         });
     });
 
+    app.get('/error', function (req, res) {
+        let respuesta = swig.renderFile('views/error.html', {});
+        res.send(respuesta);
+    });
+
     app.get('/cancion/modificar/:id', function (req, res) {
         let criterio = {"_id": gestorBD.mongo.ObjectID(req.params.id)};
         gestorBD.obtenerCanciones(criterio, function (canciones) {
