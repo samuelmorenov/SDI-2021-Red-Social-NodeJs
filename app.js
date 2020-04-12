@@ -39,6 +39,7 @@ app.use("/cancion/comprar", routerUsuarioSession);
 app.use("/compras", routerUsuarioSession);
 app.use("/cancion/:id",routerUsuarioSession);
 
+
 //routerUsuarioAutor
 let routerUsuarioAutor = express.Router();
 routerUsuarioAutor.use(function (req, res, next) {
@@ -107,6 +108,7 @@ require("./routes/rusuarios.js")(app, swig, gestorBD);
 require("./routes/rcanciones.js")(app, swig, gestorBD);
 require("./routes/rautores.js")(app, swig, gestorBD);
 require("./routes/rcomentarios.js")(app, swig, gestorBD);
+require("./routes/rapicanciones.js")(app, gestorBD);
 
 
 app.get('/', function (req, res) {
