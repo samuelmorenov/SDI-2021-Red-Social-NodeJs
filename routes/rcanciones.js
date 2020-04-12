@@ -83,25 +83,26 @@ module.exports = function (app, swig, gestorBD) {
                             if (compras == null) {
                                 res.send("Error al listar ");
                             } else {
-                                let sepuedecomprar = "true";
-                                for (i = 0; i < compras.length; i++) {
-                                    if (req.params.id == compras[i].cancionId) {
-                                        sepuedecomprar = "false";
-                                        //console.log(" - Ya comprada");
+                                var configuracion = {
+                                    url: "https://api.exchangeratesapi.io/latest?base=EUR",
+                                    method: "get",
+                                    headers: {
+                                        "token": "ejemplo",
                                     }
                                 }
-                                if (canciones[0].autor == req.session.usuario) {
-                                    sepuedecomprar = "false";
-                                    //console.log(" - Cancion publicada por el usuario");
-                                }
-                                let respuesta = swig.renderFile('views/bcancion.html',
-                                    {
-                                        puedecomprar: sepuedecomprar,
-                                        comentario: comentarios,
-                                        cancion: canciones[0]
-                                    });
-                                res.send(respuesta);
-
+                                var rest = app.get("rest");
+                                rest(configuracion, function (error, response, body) {
+                                    console.log("cod: " + response.statusCode + " Cuerpo :" + body);
+                                    var objetoRespuesta = JSON.parse(body);
+                                    var cambioUSD = objetoRespuesta.rates.USD;
+                                    // nuevo campo "usd"
+                                    canciones[0].usd = cambioUSD * canciones[0].precio;
+                                    var respuesta = swig.renderFile('views/bcancion.html',
+                                        {
+                                            cancion: canciones[0]
+                                        });
+                                    res.send(respuesta);
+                                })
                             }
                         });
                     }
