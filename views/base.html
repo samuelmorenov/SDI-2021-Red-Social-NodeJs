@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>{% block titulo %} uoMusic {% endblock %}</title>
+    <title>{% block titulo %} My Social Network {% endblock %}</title>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
@@ -21,17 +21,61 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <img src="/img/logo.png" alt="logo"/>
+            <img src="/img/student-48.png" alt="logo"/>
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
+
+            <!-- TODO: In progress -->
+            {% if loggedUser %}
             <ul class="nav navbar-nav">
-                <li id="mTienda" class="active"><a href="/tienda">Tienda</a></li>
-                <li id="mPublicaciones"><a href="/publicaciones">Publicaciones</a></li>
-                <li id="mCompras"><a href="/compras">Compras</a></li>
+                <li><a href="/">Inicio</a></li>
+                <li id="users-menu" class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        Usuarios
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/user/add">Agregar Usuario</a></li>
+                        <li><a href="/user/list">Ver Usuarios</a></li>
+                    </ul></li>
+                <li id="friends-menu" class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        Amigos
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/friend/invitationlist">
+                            Peticiones de amistad
+                        </a></li>
+                        <li><a href="/friend/friendlist">
+                            Lista de amigos
+                        </a></li>
+                    </ul></li>
             </ul>
+            {% endif %}
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="/registrarse"><span class="glyphicon glyphicon-user"></span> Registrate</a></li>
-                <li><a href="/identificarse"><span class="glyphicon glyphicon-log-in"></span> Identifícate</a></li>
+                {% if !loggedUser %}
+                <li>
+                    <a href="/signup">
+                        Registrate
+                        <span class="glyphicon glyphicon-user"></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/login">
+                        Identifícate
+                        <span class="glyphicon glyphicon-log-in"></span>
+                    </a>
+                </li>
+                {% endif %}
+                {% if loggedUser %}
+                <li>
+                    <a href="/logout">
+                        Desconectarse
+                        <span class="glyphicon glyphicon-log-out"></span>
+                    </a>
+                </li>
+                {% endif %}
             </ul>
         </div>
     </div>
@@ -67,7 +111,5 @@
     {% endblock %}
 
 </div>
-
-
 </body>
 </html>
