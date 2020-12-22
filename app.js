@@ -65,7 +65,9 @@ routerUsuarioToken.use(function (req, res, next) {
     }
 });
 // Aplicar routerUsuarioToken
+/* TODO
 app.use('/api/cancion', routerUsuarioToken);
+*/
 
 
 let gestorBD = require("./modules/gestorBD.js");
@@ -79,16 +81,18 @@ routerUsuarioSession.use(function (req, res, next) {
         next();
     } else {
         console.log("va a : " + req.session.destino)
-        res.redirect("/identificarse");
+        res.redirect("/login");
     }
 });
 
+/* TODO
 //Aplicar routerUsuarioSession
 app.use("/canciones/agregar", routerUsuarioSession);
 app.use("/publicaciones", routerUsuarioSession);
 app.use("/cancion/comprar", routerUsuarioSession);
 app.use("/compras", routerUsuarioSession);
 app.use("/cancion/:id", routerUsuarioSession);
+*/
 
 
 //routerUsuarioAutor
@@ -109,10 +113,15 @@ routerUsuarioAutor.use(function (req, res, next) {
             }
         })
 });
+
+
+/* TODO
 //Aplicar routerUsuarioAutor
 app.use("/cancion/modificar", routerUsuarioAutor);
 app.use("/cancion/eliminar", routerUsuarioAutor);
+ */
 
+/* TODO
 //routerAudios
 let routerAudios = express.Router();
 routerAudios.use(function (req, res, next) {
@@ -138,9 +147,12 @@ routerAudios.use(function (req, res, next) {
         }
     })
 });
+*/
 
+/* TODO
 //Aplicar routerAudios
 app.use("/audios/", routerAudios);
+ */
 
 app.use(express.static('public'));
 
@@ -154,16 +166,18 @@ app.set('db', 'mongodb://admin:' + pass + '@tiendamusica-shard-00-00-8d9nh.mongo
 app.set('clave', 'abcdefg');
 app.set('crypto', crypto);
 
+
 //Rutas/controladores por lógica
 require("./routes/rusuarios.js")(app, swig, gestorBD);
+/* TODO
 require("./routes/rcanciones.js")(app, swig, gestorBD);
 require("./routes/rautores.js")(app, swig, gestorBD);
 require("./routes/rcomentarios.js")(app, swig, gestorBD);
 require("./routes/rapicanciones.js")(app, gestorBD);
-
+ */
 
 app.get('/', function (req, res) {
-    res.redirect('/tienda');
+    res.redirect('/index');
 });
 
 // lanzar el servidor

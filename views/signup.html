@@ -4,10 +4,8 @@
 
 {% block contenido_principal %}
 
-<!-- TODO: Añadir las cosas de spring -->
-
-
   <h2>Registrar usuario</h2>
+
   <form class="form-horizontal" method="post" action="/signup" >
     <!-- EMAIL -->
     <div class="form-group">
@@ -17,7 +15,6 @@
             placeholder="ejemplo@email.es" required="true" />
       </div>
     </div>
-
 
     <!-- NOMBRE -->
     <div class="form-group">
@@ -36,7 +33,6 @@
                placeholder="Ejemplo: López Pérez" />
       </div>
     </div>
-
 
     <!-- PASS -->
     <div class="form-group">
@@ -63,4 +59,5 @@
       </div>
     </div>
   </form>
+
 {% endblock %}
