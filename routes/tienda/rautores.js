@@ -3,7 +3,7 @@ module.exports = function (app, swig) {
     app.post("/autor", function (req, res) {
         res.send("Autor agregado:" + req.body.nombre + "<br>"
             + " Grupo :" + req.body.grupo + "<br>"
-            + " Rol: " + req.body.rol); //TODO: Comprobar que no sea vacio
+            + " Rol: " + req.body.rol); //TO-DO: Comprobar que no sea vacio
     });
 
     app.get('/autores/agregar', function (req, res) {

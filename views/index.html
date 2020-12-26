@@ -3,5 +3,13 @@
 {% block titulo %} Pagina Principal {% endblock %}
 
 {% block contenido_principal %}
-<h2>Lorem ipsum dolor sit amet. </h2>
+
+{% if !loggedUser %}
+<h2>Bienvenido! </h2>
+{% endif %}
+
+{% if loggedUser %}
+<h2>Bienvenido de vuelta! </h2>
+{% endif %}
+
 {% endblock %}
