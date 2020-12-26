@@ -3,6 +3,7 @@
 /.pnp
 .pnp.js
 pass.txt
+/tienda
 
 # Configuracion de WebStorm
 .idea
