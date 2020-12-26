@@ -10,10 +10,11 @@ import org.junit.runners.MethodSorters;
 public class EjercicioC03_Tests extends BaseTests {
 
 	/**
-	 * Inicio de sesión con datos válidos.
+	 * Acceder a la lista de mensajes de un amigo “chat”, la lista debe contener al
+	 * menos tres mensajes.
 	 */
 	@Test
-	public void Prueba_23() {
+	public void Prueba_27() {
 		fail("Not yet implemented");
 	}
 
