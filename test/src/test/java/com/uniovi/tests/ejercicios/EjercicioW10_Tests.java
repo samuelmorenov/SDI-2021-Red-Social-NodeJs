@@ -10,7 +10,7 @@ import com.uniovi.tests.pageobjects.PO_Properties;
 import com.uniovi.tests.pageobjects.PO_View;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class Ejercicio10_Tests extends BaseTests {
+public class EjercicioW10_Tests extends BaseTests {
 	/**
 	 * Intentar acceder sin estar autenticado a la opción de listado de usuarios. Se
 	 * deberá volver al formulario de login.

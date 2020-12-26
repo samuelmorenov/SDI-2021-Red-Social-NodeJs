@@ -10,7 +10,7 @@ import com.uniovi.tests.pageobjects.PO_PrivateView;
 import com.uniovi.tests.pageobjects.PO_View;
 import com.uniovi.tests.util.SeleniumUtils;
 
-public class Ejercicio08_Tests extends BaseTests {
+public class EjercicioW08_Tests extends BaseTests {
 	/**
 	 * Sobre el listado de invitaciones recibidas. Hacer click en el botón/enlace de
 	 * una de ellas y comprobar que dicha solicitud desaparece del listado de

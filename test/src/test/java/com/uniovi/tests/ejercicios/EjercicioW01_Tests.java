@@ -11,7 +11,7 @@ import com.uniovi.tests.pageobjects.PO_RegisterView;
 import com.uniovi.tests.pageobjects.PO_View;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class Ejercicio01_Tests extends BaseTests {
+public class EjercicioW01_Tests extends BaseTests {
 	
 	private static String randomEmail() {
 		return "correo" + Integer.toString((int) (100000 * Math.random())) + "@email.es";

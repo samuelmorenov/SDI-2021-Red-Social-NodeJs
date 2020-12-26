@@ -13,7 +13,7 @@ import com.uniovi.tests.pageobjects.PO_Properties;
 import com.uniovi.tests.pageobjects.PO_View;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class Ejercicio02_Tests extends BaseTests {
+public class EjercicioW02_Tests extends BaseTests {
 
 	/**
 	 * Inicio de sesión con datos válidos (usuario estándar).

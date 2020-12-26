@@ -12,7 +12,7 @@ import com.uniovi.tests.pageobjects.PO_View;
 import com.uniovi.tests.util.SeleniumUtils;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class Ejercicio05_Tests extends BaseTests {
+public class EjercicioW05_Tests extends BaseTests {
 
 	/**
 	 * Hacer una búsqueda con el campo vacío y comprobar que se muestra la página

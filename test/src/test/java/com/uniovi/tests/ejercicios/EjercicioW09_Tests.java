@@ -9,7 +9,7 @@ import com.uniovi.tests.pageobjects.PO_LoginView;
 import com.uniovi.tests.pageobjects.PO_PrivateView;
 import com.uniovi.tests.pageobjects.PO_View;
 
-public class Ejercicio09_Tests extends BaseTests {
+public class EjercicioW09_Tests extends BaseTests {
 	/**
 	 * Mostrar el listado de amigos de un usuario. Comprobar que el listado contiene
 	 * los amigos que deben ser.
