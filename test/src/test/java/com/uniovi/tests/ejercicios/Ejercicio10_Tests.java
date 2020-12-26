@@ -1,32 +1,45 @@
 package com.uniovi.tests.ejercicios;
 
+import static org.junit.Assert.fail;
+
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 
-import com.uniovi.tests.data.UserList;
-import com.uniovi.tests.pageobjects.PO_HomeView;
-import com.uniovi.tests.pageobjects.PO_Language;
-import com.uniovi.tests.pageobjects.PO_LoginView;
+import com.uniovi.tests.pageobjects.PO_Properties;
+import com.uniovi.tests.pageobjects.PO_View;
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class Ejercicio10_Tests extends BaseTests {
-
 	/**
-	 * Visualizar al menos cuatro páginas en Español/Inglés/Español (comprobando que
-	 * algunas de las etiquetas cambian al idioma correspondiente). Ejemplo, Página
-	 * principal/Opciones Principales de Usuario/Listado de Usuarios.
+	 * Intentar acceder sin estar autenticado a la opción de listado de usuarios. Se
+	 * deberá volver al formulario de login.
 	 */
 	@Test
 	public void Prueba_20() {
-		//HOME
-		PO_Language.checkChangeIdiom(driver, "login.message");
-		//Signup
-		PO_HomeView.clickOption(driver, "signup", "class", "btn btn-primary");
-		PO_Language.checkChangeIdiom(driver, "signup.pass2", "signup.message");
-		//Login
-		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
-		PO_Language.checkChangeIdiom(driver, "login.login", "login.message");
-		//Usuarios
-		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
-		PO_LoginView.fillForm(driver, UserList.usuarios(0).email, UserList.usuarios(0).password);
-		PO_Language.checkChangeIdiom(driver, "list.title", "list.intro");
+		driver.navigate().to(URL + "/user/list");
+		PO_View.checkKey(driver, "login.login", PO_Properties.getSPANISH());
+		PO_View.checkNoKey(driver, "list.intro", PO_Properties.getSPANISH());
+	}
+
+	/**
+	 * Intentar acceder sin estar autenticado a la opción de listado de invitaciones
+	 * de amistad recibida de un usuario estándar. Se deberá volver al formulario de
+	 * login.
+	 */
+	@Test
+	public void Prueba_21() {
+		driver.navigate().to(URL + "/friend/invitationlist");
+		PO_View.checkKey(driver, "login.login", PO_Properties.getSPANISH());
+		PO_View.checkNoKey(driver, "invitationlist.title", PO_Properties.getSPANISH());
+	}
+
+	/**
+	 * Intentar acceder estando autenticado como usuario standard a la lista de
+	 * amigos de otro usuario. Se deberá mostrar un mensaje de acción indebida.
+	 */
+	@Test
+	public void Prueba_22() {
+		fail("Not yet implemented");
 	}
 }
