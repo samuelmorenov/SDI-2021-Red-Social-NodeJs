@@ -76,4 +76,9 @@ module.exports = function (app, swig, gestorBD) {
         res.send(respuesta);
     });
 
+    app.get('/error', function (req, res) {
+        let respuesta = swig.renderFile('views/error.html', {});
+        res.send(respuesta);
+    });
+
 };
