@@ -1,7 +1,3 @@
-// //////////////////////////////////////////////
-// ///////////////// Módulos ////////////////////
-// //////////////////////////////////////////////
-
 //Express, es un marco de aplicación web de back-end para Node.js
 let express = require('express');
 let app = express();
@@ -21,39 +17,32 @@ app.use(function (req, res, next) {
 var jwt = require('jsonwebtoken');
 app.set('jwt', jwt);
 
-// Definimos el protocolo https
-let fs = require('fs');
-let https = require('https');
-
 // Configuramos la session
 let expressSession = require('express-session');
 app.use(expressSession({secret: 'abcdefg', resave: true, saveUninitialized: true}));
 
-// Definimos el modulo de encriptacion para las contraseñas
-let crypto = require('crypto');
-
 // Para poder subir archivos
 let fileUpload = require('express-fileupload');
 app.use(fileUpload());
-
-// Definimos el modulo de la base de datos
-let mongo = require('mongodb');
-
-// Definimos el modulo de motor de plantillas
-let swig = require('swig');
 
 // Añadimos el parser para json
 let bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
+// Establecemos el acceso a la carpeta public
+app.use(express.static('public'));
+
+// Establecemos el puerto
+app.set('port', 8081);
+
 // routerUsuarioToken
 var routerUsuarioToken = express.Router();
 routerUsuarioToken.use(function (req, res, next) {
-    // obtener el token, vía headers (opcionalmente GET y/o POST).
+    // Obtener el token, vía headers (opcionalmente GET y/o POST).
     var token = req.headers['token'] || req.body.token || req.query.token;
     if (token != null) {
-        // verificar el token
+        // Verificar el token
         jwt.verify(token, 'secreto', function (err, infoToken) {
             if (err || (Date.now() / 1000 - infoToken.tiempo) > 240) {
                 res.status(403); // Forbidden
@@ -65,7 +54,7 @@ routerUsuarioToken.use(function (req, res, next) {
                 return;
 
             } else {
-                // dejamos correr la petición
+                // Dejamos correr la petición
                 res.usuario = infoToken.usuario;
                 next();
             }
@@ -80,41 +69,37 @@ routerUsuarioToken.use(function (req, res, next) {
     }
 });
 
-
+// Definimos el modulo de la base de datos
+let mongo = require('mongodb');
 let gestorBD = require("./modules/gestorBD.js");
 gestorBD.init(app, mongo);
-// routerUsuarioSession
+
+// RouterUsuarioSession
 let routerUsuarioSession = express.Router();
 routerUsuarioSession.use(function (req, res, next) {
-    console.log("routerUsuarioSession");
     if (req.session.usuario) {
-        // dejamos correr la petición
+        // Dejamos correr la petición
         next();
     } else {
         res.redirect("/login");
     }
 });
 
-// Establecemos el acceso a la carpeta public
-app.use(express.static('public'));
-
-// Contraseña
+// Establecemos la base de datos
 let fs2 = require('fs');
 let pass = fs2.readFileSync('pass.txt', 'utf-8');
-
-// Variables
-app.set('port', 8081);
-app.set('db', 'mongodb://admin:' + pass + '@tiendamusica-shard-00-00-8d9nh.mongodb.net:27017,tiendamusica-shard-00-01-8d9nh.mongodb.net:27017,tiendamusica-shard-00-02-8d9nh.mongodb.net:27017/test?ssl=true&replicaSet=tiendamusica-shard-0&authSource=admin&retryWrites=true&w=majority');
+app.set('db', 'mongodb://admin:' + pass + '@tiendamusica-shard-00-00-8d9nh.mongodb.net:27017,' +
+    'tiendamusica-shard-00-01-8d9nh.mongodb.net:27017,' +
+    'tiendamusica-shard-00-02-8d9nh.mongodb.net:27017' +
+    '/test?ssl=true&replicaSet=tiendamusica-shard-0&authSource=admin&retryWrites=true&w=majority');
 app.set('clave', 'abcdefg');
+
+// Definimos el modulo de encriptacion para las contraseñas
+let crypto = require('crypto');
 app.set('crypto', crypto);
 
-// //////////////////////////////////////////////
-// ////////////////// Rutas /////////////////////
-// //////////////////////////////////////////////
-
-// Establecimiento de rutas
-require("./routes/rLogInSignUp.js")(app, swig, gestorBD);
-require("./routes/rUsers.js")(app, swig, gestorBD);
+// Definimos el modulo de motor de plantillas
+let swig = require('swig');
 
 // Redireccion de rutas
 app.get('/', function (req, res) {
@@ -123,15 +108,23 @@ app.get('/', function (req, res) {
 
 // Captura de errores
 app.use(function (err, req, res, next) {
-    console.log("Error producido: " + err);
     if (!res.headersSent) {
         res.status(400);
-        // res.send("Recurso no disponible");
         res.redirect('/error');
     }
 });
 
+// Establecimiento de rutas
+require("./routes/rLogInSignUp.js")(app, swig, gestorBD);
+require("./routes/rUsers.js")(app, swig, gestorBD);
+
+// Aplicar routerUsuarioToken TODO
+
+// Aplicar RouterUsuarioSession TODO
+
 // Arrancamos el servidor
+let fs = require('fs');
+let https = require('https');
 https.createServer({
 	key: fs.readFileSync('certificates/alice.key'),
     cert: fs.readFileSync('certificates/alice.crt')
