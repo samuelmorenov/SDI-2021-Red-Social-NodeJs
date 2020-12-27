@@ -3,7 +3,7 @@ module.exports = function (app, swig, gestorBD) {
     app.post('/signup', function (req, res) {
 
         if (req.body.password != req.body.passwordConfirm) {
-            res.redirect("/registrarse?mensaje=Las contraseñas no coinciden");
+            res.redirect("/signup?mensaje=Las contraseñas no coinciden.");
         } else {
             let seguro = app.get("crypto").createHmac('sha256', app.get('clave'))
                 .update(req.body.password).digest('hex');
@@ -14,7 +14,7 @@ module.exports = function (app, swig, gestorBD) {
 
             gestorBD.obtenerUsuarios(criterio, function (usuarios) {
                 if (usuarios.length > 0) {
-                    res.redirect("/signup?mensaje=Email ya registrado en el sistema");
+                    res.redirect("/signup?mensaje=Ese email ya existe.");
                 } else {
                     let usuario = {
                         nombre: req.body.nombre,
@@ -25,9 +25,9 @@ module.exports = function (app, swig, gestorBD) {
 
                     gestorBD.insertarUsuario(usuario, function (id) {
                         if (id == null) {
-                            res.redirect("/signup?mensaje=Error al registar usuario");
+                            res.redirect("/signup?mensaje=Error al registar usuario.");
                         } else {
-                            res.redirect("/login?mensaje=Nuevo usuario registrado")
+                            res.redirect("/login?mensaje=Nuevo usuario registrado.")
                         }
                     });
                 }
