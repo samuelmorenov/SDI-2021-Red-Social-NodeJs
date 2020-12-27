@@ -3,7 +3,10 @@ module.exports = function (app, swig, gestorBD) {
     app.post('/signup', function (req, res) {
 
         if (req.body.password != req.body.passwordConfirm) {
-            res.redirect("/signup?mensaje=Las contraseñas no coinciden.");
+            res.redirect("/signup" +
+                "?mensaje="+
+                "Las contraseñas no coinciden." +
+                "&tipoMensaje=alert-danger ");
         } else {
             let seguro = app.get("crypto").createHmac('sha256', app.get('clave'))
                 .update(req.body.password).digest('hex');
@@ -14,7 +17,10 @@ module.exports = function (app, swig, gestorBD) {
 
             gestorBD.obtenerUsuarios(criterio, function (usuarios) {
                 if (usuarios.length > 0) {
-                    res.redirect("/signup?mensaje=Ese email ya existe.");
+                    res.redirect("/signup" +
+                        "?mensaje="+
+                        "Ese email ya existe." +
+                        "&tipoMensaje=alert-danger ");
                 } else {
                     let usuario = {
                         nombre: req.body.nombre,
@@ -25,7 +31,10 @@ module.exports = function (app, swig, gestorBD) {
 
                     gestorBD.insertarUsuario(usuario, function (id) {
                         if (id == null) {
-                            res.redirect("/signup?mensaje=Error al registar usuario.");
+                            res.redirect("/signup" +
+                                "?mensaje="+
+                                "Error al registar usuario." +
+                                "&tipoMensaje=alert-danger ");
                         } else {
                             res.redirect("/login?mensaje=Nuevo usuario registrado.")
                         }
@@ -56,7 +65,8 @@ module.exports = function (app, swig, gestorBD) {
             if (usuarios == null || usuarios.length == 0) {
                 req.session.usuario = null;
                 res.redirect("/login" +
-                    "?mensaje=Email o password incorrecto" +
+                    "?mensaje="+
+                    "La combinacion usuario-contraseña es incorrecta." +
                     "&tipoMensaje=alert-danger ");
 
             } else {
