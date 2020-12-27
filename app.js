@@ -1,33 +1,48 @@
-// Módulos
+// //////////////////////////////////////////////
+// ///////////////// Módulos ////////////////////
+// //////////////////////////////////////////////
+
+//Express, es un marco de aplicación web de back-end para Node.js
 let express = require('express');
 let app = express();
 
-let rest = require('request');
-app.set('rest', rest);
-
+// Establecemos los controles de acceso HTTP
+// Debemos especificar todas las headers que se aceptan.
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Credentials", "true");
     res.header("Access-Control-Allow-Methods", "POST, GET, DELETE, UPDATE, PUT");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, token");
-    // Debemos especificar todas las headers que se aceptan. Content-Type , token
     next();
 });
 
+// Jsonwebtoken sirve para la creación de tokens de acceso que permiten la
+// propagación de identidad y privilegios
 var jwt = require('jsonwebtoken');
 app.set('jwt', jwt);
 
+// Definimos el protocolo https
 let fs = require('fs');
 let https = require('https');
 
+// Configuramos la session
 let expressSession = require('express-session');
 app.use(expressSession({secret: 'abcdefg', resave: true, saveUninitialized: true}));
+
+// Definimos el modulo de encriptacion para las contraseñas
 let crypto = require('crypto');
 
+// Para poder subir archivos
 let fileUpload = require('express-fileupload');
 app.use(fileUpload());
+
+// Definimos el modulo de la base de datos
 let mongo = require('mongodb');
+
+// Definimos el modulo de motor de plantillas
 let swig = require('swig');
+
+// Añadimos el parser para json
 let bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -65,6 +80,7 @@ routerUsuarioToken.use(function (req, res, next) {
     }
 });
 
+
 let gestorBD = require("./modules/gestorBD.js");
 gestorBD.init(app, mongo);
 // routerUsuarioSession
@@ -79,9 +95,10 @@ routerUsuarioSession.use(function (req, res, next) {
     }
 });
 
+// Establecemos el acceso a la carpeta public
 app.use(express.static('public'));
 
-//Contraseña
+// Contraseña
 let fs2 = require('fs');
 let pass = fs2.readFileSync('pass.txt', 'utf-8');
 
@@ -91,28 +108,33 @@ app.set('db', 'mongodb://admin:' + pass + '@tiendamusica-shard-00-00-8d9nh.mongo
 app.set('clave', 'abcdefg');
 app.set('crypto', crypto);
 
-//Rutas/controladores por lógica
+// //////////////////////////////////////////////
+// ////////////////// Rutas /////////////////////
+// //////////////////////////////////////////////
+
+// Establecimiento de rutas
 require("./routes/rLogInSignUp.js")(app, swig, gestorBD);
 require("./routes/rUsers.js")(app, swig, gestorBD);
 
-
+// Redireccion de rutas
 app.get('/', function (req, res) {
     res.redirect('/index');
 });
 
-// lanzar el servidor
+// Captura de errores
 app.use(function (err, req, res, next) {
     console.log("Error producido: " + err);
     if (!res.headersSent) {
         res.status(400);
-        //res.send("Recurso no disponible");
+        // res.send("Recurso no disponible");
         res.redirect('/error');
     }
 });
 
+// Arrancamos el servidor
 https.createServer({
-    key: fs.readFileSync('certificates/alice.key'),
+	key: fs.readFileSync('certificates/alice.key'),
     cert: fs.readFileSync('certificates/alice.crt')
-}, app).listen(app.get('port'), function () {
-    console.log("Servidor activo");
+}, app).listen(app.get('port'),function () {
+    console.log("Servidor activo: https://localhost:8081");
 });
