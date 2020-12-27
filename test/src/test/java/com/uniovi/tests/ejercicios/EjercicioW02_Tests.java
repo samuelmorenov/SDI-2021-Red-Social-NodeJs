@@ -6,12 +6,6 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
-import com.uniovi.tests.data.UserList;
-import com.uniovi.tests.pageobjects.PO_HomeView;
-import com.uniovi.tests.pageobjects.PO_LoginView;
-import com.uniovi.tests.pageobjects.PO_Properties;
-import com.uniovi.tests.pageobjects.PO_View;
-
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class EjercicioW02_Tests extends BaseTests {
 
@@ -20,9 +14,10 @@ public class EjercicioW02_Tests extends BaseTests {
 	 */
 	@Test
 	public void Prueba_05() {
-		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
-		PO_LoginView.fillForm(driver, UserList.usuarios(0).email, UserList.usuarios(0).password);
-		PO_View.checkKey(driver, "list.intro", PO_Properties.getSPANISH());
+//		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+//		PO_LoginView.fillForm(driver, UserList.usuarios(0).email, UserList.usuarios(0).password);
+//		PO_View.checkKey(driver, "list.intro", PO_Properties.getSPANISH());
+		fail("Not yet implemented");
 	}
 
 	/**
@@ -31,9 +26,10 @@ public class EjercicioW02_Tests extends BaseTests {
 	 */
 	@Test
 	public void Prueba_06() {
-		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
-		PO_LoginView.fillForm(driver, "", "");
-		PO_View.checkKey(driver, "Error.login", PO_Properties.getSPANISH());
+//		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+//		PO_LoginView.fillForm(driver, "", "");
+//		PO_View.checkKey(driver, "Error.login", PO_Properties.getSPANISH());
+		fail("Not yet implemented");
 	}
 
 	/**
@@ -42,9 +38,10 @@ public class EjercicioW02_Tests extends BaseTests {
 	 */
 	@Test
 	public void Prueba_07() {
-		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
-		PO_LoginView.fillForm(driver, UserList.usuarios(0).email, "incorrecta");
-		PO_View.checkKey(driver, "Error.login", PO_Properties.getSPANISH());
+//		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+//		PO_LoginView.fillForm(driver, UserList.usuarios(0).email, "incorrecta");
+//		PO_View.checkKey(driver, "Error.login", PO_Properties.getSPANISH());
+		fail("Not yet implemented");
 	}
 
 	/**

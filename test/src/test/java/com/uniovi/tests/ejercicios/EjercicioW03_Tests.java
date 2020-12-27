@@ -1,5 +1,7 @@
 package com.uniovi.tests.ejercicios;
 
+import static org.junit.Assert.fail;
+
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
@@ -7,7 +9,6 @@ import org.junit.runners.MethodSorters;
 import com.uniovi.tests.data.UserList;
 import com.uniovi.tests.pageobjects.PO_HomeView;
 import com.uniovi.tests.pageobjects.PO_LoginView;
-import com.uniovi.tests.pageobjects.PO_Properties;
 import com.uniovi.tests.pageobjects.PO_View;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
@@ -18,10 +19,11 @@ public class EjercicioW03_Tests extends BaseTests {
 	 */
 	@Test
 	public void Prueba_09() {
-		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
-		PO_LoginView.fillForm(driver, UserList.usuarios(0).email, UserList.usuarios(0).password);
-		PO_HomeView.clickOption(driver, "logout", "class", "btn btn-primary");
-		PO_View.checkKey(driver, "login.message", PO_Properties.getSPANISH());
+//		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+//		PO_LoginView.fillForm(driver, UserList.usuarios(0).email, UserList.usuarios(0).password);
+//		PO_HomeView.clickOption(driver, "logout", "class", "btn btn-primary");
+//		PO_View.checkKey(driver, "login.message", PO_Properties.getSPANISH());
+		fail("Not yet implemented");
 	}
 
 	/**
@@ -30,10 +32,11 @@ public class EjercicioW03_Tests extends BaseTests {
 	 */
 	@Test
 	public void Prueba_10() {
-		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
-		PO_LoginView.fillForm(driver, UserList.usuarios(0).email, UserList.usuarios(0).password);
-		PO_HomeView.clickOption(driver, "logout", "class", "btn btn-primary");
-		PO_View.checkNoKey(driver, "logout.message", PO_Properties.getSPANISH());
+//		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+//		PO_LoginView.fillForm(driver, UserList.usuarios(0).email, UserList.usuarios(0).password);
+//		PO_HomeView.clickOption(driver, "logout", "class", "btn btn-primary");
+//		PO_View.checkNoKey(driver, "logout.message", PO_Properties.getSPANISH());
+		fail("Not yet implemented");
 	}
 
 }

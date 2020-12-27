@@ -6,9 +6,6 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
-import com.uniovi.tests.pageobjects.PO_Properties;
-import com.uniovi.tests.pageobjects.PO_View;
-
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class EjercicioW10_Tests extends BaseTests {
 	/**
@@ -17,9 +14,10 @@ public class EjercicioW10_Tests extends BaseTests {
 	 */
 	@Test
 	public void Prueba_20() {
-		driver.navigate().to(URL + "/user/list");
-		PO_View.checkKey(driver, "login.login", PO_Properties.getSPANISH());
-		PO_View.checkNoKey(driver, "list.intro", PO_Properties.getSPANISH());
+		fail("Not yet implemented");
+//		driver.navigate().to(URL + "/user/list");
+//		PO_View.checkKey(driver, "login.login", PO_Properties.getSPANISH());
+//		PO_View.checkNoKey(driver, "list.intro", PO_Properties.getSPANISH());
 	}
 
 	/**
@@ -29,9 +27,10 @@ public class EjercicioW10_Tests extends BaseTests {
 	 */
 	@Test
 	public void Prueba_21() {
-		driver.navigate().to(URL + "/friend/invitationlist");
-		PO_View.checkKey(driver, "login.login", PO_Properties.getSPANISH());
-		PO_View.checkNoKey(driver, "invitationlist.title", PO_Properties.getSPANISH());
+		fail("Not yet implemented");
+//		driver.navigate().to(URL + "/friend/invitationlist");
+//		PO_View.checkKey(driver, "login.login", PO_Properties.getSPANISH());
+//		PO_View.checkNoKey(driver, "invitationlist.title", PO_Properties.getSPANISH());
 	}
 
 	/**
