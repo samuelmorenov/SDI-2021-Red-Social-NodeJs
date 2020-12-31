@@ -45,12 +45,12 @@ module.exports = function (app, swig, gestorBD) {
     });
 
     app.get("/signup", function (req, res) {
-        let respuesta = swig.renderFile('views/signup.html', {});
+        let respuesta = swig.renderFile('views/signup.html', {loggedUser: req.session.usuario != null});
         res.send(respuesta);
     });
 
     app.get("/login", function (req, res) {
-        let respuesta = swig.renderFile('views/login.html', {});
+        let respuesta = swig.renderFile('views/login.html', {loggedUser: req.session.usuario != null});
         res.send(respuesta);
     });
 
@@ -78,7 +78,8 @@ module.exports = function (app, swig, gestorBD) {
 
     app.get('/logout', function (req, res) {
         req.session.usuario = null;
-        res.send("Usuario desconectado");
+        let respuesta = swig.renderFile('views/login.html', {loggedUser: req.session.usuario != null});
+        res.send(respuesta);
     });
 
     app.get("/index", function (req, res) {
