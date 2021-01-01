@@ -14,7 +14,8 @@ import com.uniovi.tests.ejercicios.*;
 @SuiteClasses({ 
 	//EjercicioW01_Tests.class,
 	//EjercicioW02_Tests.class,
-	EjercicioW03_Tests.class
+	//EjercicioW03_Tests.class,
+	EjercicioW04_Tests.class
 })
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class MySocialNetwork_Tests {
