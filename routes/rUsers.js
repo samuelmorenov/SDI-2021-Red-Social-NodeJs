@@ -7,8 +7,17 @@ module.exports = function (app, swig, gestorBD) {
         let criterio = {};
 
         if (req.query.searchText != null) {
-            criterio = {"email": {$regex: ".*" + req.query.busqueda + ".*"}};
+            let busqueda = {
+                $or:
+                    [
+                        { "email": { $regex: ".*" + req.query.busqueda + ".*" } },
+                        { "name": { $regex: ".*" + req.query.busqueda + ".*" } },
+                        { "lastName:": { $regex: ".*" + req.query.busqueda + ".*" } }
+                    ]
+            };
+            criterio = { $and: [criterio, busqueda] };
         }
+
 
         let pg = parseInt(req.query.pg); // Es String !!!
         if (req.query.pg == null) { // Puede no venir el param
@@ -36,7 +45,7 @@ module.exports = function (app, swig, gestorBD) {
                         actual: pg,
                         loggedUser: req.session.usuario != null
                     });
-                console.log(users);
+                //console.log(users);
                 res.send(respuesta);
             }
         });

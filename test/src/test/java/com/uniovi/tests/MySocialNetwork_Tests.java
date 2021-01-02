@@ -1,17 +1,18 @@
 package com.uniovi.tests;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
-import org.junit.runners.Suite.SuiteClasses;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
+import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
-import com.uniovi.tests.ejercicios.*;
+import com.uniovi.tests.ejercicios.EjercicioW05_Tests;
 
 @RunWith(Suite.class)
 @SuiteClasses({ 
+	//CreateUsersTest.class
 	//EjercicioW01_Tests.class,
 	//EjercicioW02_Tests.class,
 	//EjercicioW03_Tests.class,

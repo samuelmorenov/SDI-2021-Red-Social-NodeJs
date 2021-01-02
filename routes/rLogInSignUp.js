@@ -23,7 +23,7 @@ module.exports = function (app, swig, gestorBD) {
                         "&tipoMensaje=alert-danger ");
                 } else {
                     let usuario = {
-                        nombre: req.body.name,
+                        name: req.body.name,
                         lastName: req.body.lastName,
                         email: req.body.email,
                         password: seguro
@@ -92,13 +92,13 @@ module.exports = function (app, swig, gestorBD) {
         res.send(respuesta);
     });
 
-    /*
+    /*/
     app.get('/administrar', function (req, res) {
         let criterio = {};
         gestorBD.administrar(criterio, function () {
             res.send(String("Base de datos administrada."));
         });
     });
- */
+ //*/
 
 };
