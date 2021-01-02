@@ -6,7 +6,7 @@ module.exports = function (app, swig, gestorBD) {
 
         let criterio = {};
 
-        if (req.query.searchText != null) {
+        if (req.query.busqueda != null) {
             let busqueda = {
                 $or:
                     [

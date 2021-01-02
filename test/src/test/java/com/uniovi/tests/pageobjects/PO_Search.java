@@ -8,7 +8,7 @@ public class PO_Search extends PO_NavView {
 
 	static public void search(WebDriver driver, String text) {
 
-		WebElement busqueda = driver.findElement(By.name("searchText"));
+		WebElement busqueda = driver.findElement(By.name("busqueda"));
 		busqueda.click();
 		busqueda.clear();
 		busqueda.sendKeys(text);
