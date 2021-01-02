@@ -42,14 +42,14 @@ module.exports = {
         });
     },
 
-    obtenerUsuariosPg : function(criterio,pg,funcionCallback){
+    obtenerUsuariosPg : function(criterio,pg, usersPorPagina,funcionCallback){
         this.mongo.MongoClient.connect(this.app.get('db'), function(err, db) {
             if (err) {
                 funcionCallback(null);
             } else {
                 let collection = db.collection('usuarios');
                 collection.count(function(err, count){
-                    collection.find(criterio).skip( (pg-1)*4 ).limit( 4 )
+                    collection.find(criterio).skip( (pg-1)*usersPorPagina ).limit( usersPorPagina )
                         .toArray(function(err, users) {
                             if (err) {
                                 funcionCallback(null);

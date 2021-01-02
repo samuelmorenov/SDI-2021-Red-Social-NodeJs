@@ -4,6 +4,8 @@ module.exports = function (app, swig, gestorBD) {
 
     app.get("/users", function (req, res) {
 
+        let usersPorPagina = 5;
+
         let criterio = {};
 
         /*
@@ -17,12 +19,12 @@ module.exports = function (app, swig, gestorBD) {
             pg = 1;
         }
 
-        gestorBD.obtenerUsuariosPg(criterio, pg, function (users, total) {
+        gestorBD.obtenerUsuariosPg(criterio, pg, usersPorPagina, function (users, total) {
             if (users == null) {
                 res.send("Error al listar ");
             } else {
-                let ultimaPg = total / 4;
-                if (total % 4 > 0) { // Sobran decimales
+                let ultimaPg = total / usersPorPagina;
+                if (total % usersPorPagina > 0) { // Sobran decimales
                     ultimaPg = ultimaPg + 1;
                 }
                 let paginas = []; // paginas mostrar
