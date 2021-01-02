@@ -43,12 +43,4 @@ module.exports = function (app, swig, gestorBD) {
 
     });
 
-
-    app.get('/administrar', function (req, res) {
-        let criterio = {};
-        gestorBD.administrar(criterio, function () {
-            res.send(String("Base de datos administrada."));
-        });
-    });
-
 }
