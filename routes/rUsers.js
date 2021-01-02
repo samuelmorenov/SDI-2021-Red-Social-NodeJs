@@ -1,25 +1,21 @@
 module.exports = function (app, swig, gestorBD) {
 
-
-
     app.get("/users", function (req, res) {
 
-        let usersPorPagina = 5;
+        let usersPorPagina = 100;
 
         let criterio = {};
 
-        /*
-        if (req.query.busqueda != null) {
-            criterio = {"nombre": {$regex: ".*" + req.query.busqueda + ".*"}};
+        if (req.query.searchText != null) {
+            criterio = {"email": {$regex: ".*" + req.query.busqueda + ".*"}};
         }
-        */
 
         let pg = parseInt(req.query.pg); // Es String !!!
         if (req.query.pg == null) { // Puede no venir el param
             pg = 1;
         }
 
-        gestorBD.obtenerUsuariosPg(criterio, pg, usersPorPagina, function (users, total) {
+        gestorBD.obtenerListaUsuarios(criterio, pg, usersPorPagina, function (users, total) {
             if (users == null) {
                 res.send("Error al listar ");
             } else {
@@ -37,16 +33,22 @@ module.exports = function (app, swig, gestorBD) {
                     {
                         users: users,
                         paginas: paginas,
-                        actual: pg
+                        actual: pg,
+                        loggedUser: req.session.usuario != null
                     });
+                console.log(users);
                 res.send(respuesta);
             }
         });
 
+    });
 
 
-
-
+    app.get('/administrar', function (req, res) {
+        let criterio = {};
+        gestorBD.administrar(criterio, function () {
+            res.send(String("Base de datos administrada."));
+        });
     });
 
 }

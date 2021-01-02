@@ -8,7 +8,7 @@ import com.uniovi.tests.DriverSingleton;
 
 public class BaseTests {
 
-	static WebDriver driver = DriverSingleton.getDriver();
+	protected static WebDriver driver = DriverSingleton.getDriver();
 
 	protected static String URL = "https://localhost:8081";
 

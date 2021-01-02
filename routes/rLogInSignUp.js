@@ -23,7 +23,7 @@ module.exports = function (app, swig, gestorBD) {
                         "&tipoMensaje=alert-danger ");
                 } else {
                     let usuario = {
-                        nombre: req.body.nombre,
+                        nombre: req.body.name,
                         lastName: req.body.lastName,
                         email: req.body.email,
                         password: seguro
