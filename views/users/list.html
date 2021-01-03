@@ -22,6 +22,8 @@
             <tr>
                 <th>Email</th>
                 <th>Nombre</th>
+                <th>Apellidos</th>
+
                 <th class="col-md-1"></th>
                 <!--
                 <th class="col-md-1"></th>
@@ -34,42 +36,27 @@
             <tr>
                 <td>{{ user.email }}</td>
                 <td>{{ user.name }}</td>
+                <td>{{ user.lastName }}</td>
 
                 <td>
-                    <!--
-                    <button
-                            type="button"
-                            id="${'sendButton' + user.id}"
-                            class="btn btn-default">
-                        Enviar Solicitud
-                    </button>
 
 
-                    <div th:if='${#bools.isTrue(#lists.contains(usersWithInvitation, user))}'>
-                        <script th:inline="javascript">
-                            /*<![CDATA[*/
-                            $("#sendButton[[${user.id}]]").attr('disabled', true);
-                            $("#sendButton[[${user.id}]]").text( "Solicitud enviada" );
-                            $("#sendButton[[${user.id}]]").id = "sendButtonOff[[${user.id}]]";
-                            /*]]>*/
-                        </script>
-                    </div>
-
-                    <script th:inline="javascript">
-                        /*<![CDATA[*/
-                        $( "#sendButton[[${user.id}]]" ).click(
-                            function() {
-                                $("#sendButton[[${user.id}]]").attr('disabled', true);
-                                $("#sendButton[[${user.id}]]").text( "Solicitud enviada" );
-                                $("#sendButton[[${user.id}]]").id = "sendButtonOff[[${user.id}]]";
-                                var receptor = [[${user.id}]];
-                                $.post("/user/send", {"receptorId" : receptor});
-                            }
-                        );
-                        /*]]>*/
-                    </script>
-
-                    -->
+                {% if user.isFriend %}
+                    <td>Ya es tu amigo</td>
+                {% elseif user.invitationSended %}
+                    <td>Solicitud enviada</td>
+                {% else %}
+                    <td>
+                        <form class="navbar-form" action="/invitations/send/{{ user.email}}">
+                            <button
+                                    type="submit"
+                                    id="sendButton-{{ user.email }}"
+                                    class="btn btn-default">
+                                Enviar Solicitud
+                            </button>
+                        </form>
+                    </td>
+                {% endif %}
                 </td>
                 <!--
                 <td><a th:href="${'/user/details/' + user.id}" th:text="#{list.detalles}"></a></td>

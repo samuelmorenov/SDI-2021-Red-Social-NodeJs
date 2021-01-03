@@ -8,7 +8,7 @@ import org.junit.runners.MethodSorters;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
-import com.uniovi.tests.ejercicios.EjercicioW05_Tests;
+import com.uniovi.tests.ejercicios.*;
 
 @RunWith(Suite.class)
 @SuiteClasses({ 
@@ -17,7 +17,8 @@ import com.uniovi.tests.ejercicios.EjercicioW05_Tests;
 	//EjercicioW02_Tests.class,
 	//EjercicioW03_Tests.class,
 	//EjercicioW04_Tests.class,
-	EjercicioW05_Tests.class
+	//EjercicioW05_Tests.class,
+	EjercicioW06_Tests.class
 })
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class MySocialNetwork_Tests {

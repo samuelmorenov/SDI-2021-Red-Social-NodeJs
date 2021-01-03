@@ -117,6 +117,8 @@ app.use(function (err, req, res, next) {
 // Establecimiento de rutas
 require("./routes/rLogInSignUp.js")(app, swig, gestorBD);
 require("./routes/rUsers.js")(app, swig, gestorBD);
+require("./routes/rInvitations.js")(app, swig, gestorBD);
+
 
 // Aplicar routerUsuarioToken TODO
 
