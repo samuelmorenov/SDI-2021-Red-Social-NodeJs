@@ -2,7 +2,7 @@ module.exports = function (app, swig, gestorBD) {
 
     app.get("/users", function (req, res) {
 
-        let usersPorPagina = 100;
+        let unitsPerPage = 100;
 
         let criterio = {};
 
@@ -24,12 +24,12 @@ module.exports = function (app, swig, gestorBD) {
             pg = 1;
         }
 
-        gestorBD.obtenerListaUsuarios(criterio, pg, usersPorPagina, function (users, total) {
+        gestorBD.obtenerListaUsuarios(criterio, pg, unitsPerPage, function (users, total) {
             if (users == null) {
                 res.send("Error al listar ");
             } else {
-                let ultimaPg = total / usersPorPagina;
-                if (total % usersPorPagina > 0) { // Sobran decimales
+                let ultimaPg = total / unitsPerPage;
+                if (total % unitsPerPage > 0) { // Sobran decimales
                     ultimaPg = ultimaPg + 1;
                 }
                 let paginas = []; // paginas mostrar
@@ -45,7 +45,6 @@ module.exports = function (app, swig, gestorBD) {
                         actual: pg,
                         loggedUser: req.session.usuario != null
                     });
-                //console.log(users);
                 res.send(respuesta);
             }
         });

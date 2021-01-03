@@ -10,6 +10,7 @@ import com.uniovi.tests.pageobjects.PO_Invitation;
 import com.uniovi.tests.pageobjects.PO_LoginView;
 import com.uniovi.tests.pageobjects.PO_PrivateView;
 import com.uniovi.tests.pageobjects.PO_View;
+import com.uniovi.tests.util.SeleniumUtils;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class EjercicioW06_Tests extends BaseTests {
@@ -26,7 +27,8 @@ public class EjercicioW06_Tests extends BaseTests {
 		//Comprobar que existe
 		PO_HomeView.clickOption("login", "class", "btn btn-primary");
 		PO_LoginView.fillForm(UserList.usuarios(1).email, UserList.usuarios(1).password);
-		PO_PrivateView.accederPagina("friends-menu", "/friend/invitationlist");
+		PO_PrivateView.accederPagina("friends-menu", "/invitations");
+		SeleniumUtils.esperarSegundos(5);
 		PO_View.checkElement("text", UserList.usuarios(0).name);
 	}
 

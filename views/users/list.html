@@ -40,7 +40,9 @@
                 <td>{{ user.lastName }}</td>
 
                 <td>
-                    {% if user.isFriend %}
+                    {% if user.itsYou %}
+
+                    {% elseif user.isFriend %}
                     Ya es tu amigo
                     {% elseif user.invitationSended %}
                     Solicitud enviada

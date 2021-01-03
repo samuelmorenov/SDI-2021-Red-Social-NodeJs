@@ -42,14 +42,14 @@ module.exports = {
         });
     },
 
-    obtenerListaUsuarios: function (criterio, pg, usersPorPagina, funcionCallback) {
+    obtenerListaUsuarios: function (criterio, pg, unitsPerPage, funcionCallback) {
         this.mongo.MongoClient.connect(this.app.get('db'), function (err, db) {
             if (err) {
                 funcionCallback(null);
             } else {
                 let collection = db.collection('usuarios');
                 collection.count(function (err, count) {
-                    collection.find(criterio).skip((pg - 1) * usersPorPagina).limit(usersPorPagina)
+                    collection.find(criterio).skip((pg - 1) * unitsPerPage).limit(unitsPerPage)
                         .toArray(function (err, users) {
                             if (err) {
                                 funcionCallback(null);
@@ -76,6 +76,27 @@ module.exports = {
                         funcionCallback(result.ops[0]._id);
                     }
                     db.close();
+                });
+            }
+        });
+    },
+
+    obtenerListaInvitaciones: function (criterio, pg, unitsPerPage, funcionCallback) {
+        this.mongo.MongoClient.connect(this.app.get('db'), function (err, db) {
+            if (err) {
+                funcionCallback(null);
+            } else {
+                let collection = db.collection('invitaciones');
+                collection.count(function (err, count) {
+                    collection.find(criterio).skip((pg - 1) * unitsPerPage).limit(unitsPerPage)
+                        .toArray(function (err, invitations) {
+                            if (err) {
+                                funcionCallback(null);
+                            } else {
+                                funcionCallback(invitations, count);
+                            }
+                            db.close();
+                        });
                 });
             }
         });
