@@ -40,12 +40,11 @@ public class EjercicioW06_Tests extends BaseTests {
 	@Test
 	public void Prueba_16() {
 		//Enviar peticion
-		PO_Invitation.enviarPeticion(0, 1);
+		PO_Invitation.enviarPeticion(0, 2);
 		//Comprobar que no se puede volver a enviar
 		PO_HomeView.clickOption("login", "class", "btn btn-primary");
 		PO_LoginView.fillForm(UserList.usuarios(0).email, UserList.usuarios(0).password);
-		SeleniumUtils.esperarSegundos(2);
-		PO_HomeView.noEsClickable("sendButton-" + UserList.usuarios(1).email);
+		PO_HomeView.noEsClickable("sendButton-" + UserList.usuarios(2).email);
 	}
 
 }

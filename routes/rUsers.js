@@ -37,27 +37,23 @@ module.exports = function (app, swig, gestorBD) {
                     }
                 }
 
-                gestorBD.obtenerLista('invitaciones', {}, function (invitaciones, total) {
+                criterio = { "emisorEmail" : req.session.usuario };
+                gestorBD.obtenerLista('invitaciones', criterio, function (invitaciones, total) {
                     for (let i = 0; i < users.length; i++) {
                         let user = users[i];
 
                         user["buttonDisabled"] = 'enabled';//enabled / disabled
                         user["buttonText"] = 'Enviar Solicitud';
 
-                        /*
-                        if (user.email = req.session.usuario) {
+
+                        if (user.email == req.session.usuario) {
                             user["buttonDisabled"] = 'disabled';//enabled / disabled
                             user["buttonText"] = ' ';
                         }
-                         */
 
                         if (invitaciones != null) {
                             for (let j = 0; j < invitaciones.length; j++) {
-                                if (invitaciones[j].receptorEmail == user.email) {
-                                    user["buttonDisabled"] = 'disabled';//enabled / disabled
-                                    user["buttonText"] = 'Solicitud recibida';
-                                }
-                                if (invitaciones[j].emisorEmail == user.email) {
+                                if (user.email == invitaciones[j].receptorEmail) {
                                     user["buttonDisabled"] = 'disabled';//enabled / disabled
                                     user["buttonText"] = 'Solicitud enviada';
                                 }
