@@ -6,8 +6,8 @@ module.exports = {
         this.app = app;
     },
 
-    /*/
-    administrar: function (criterio, funcionCallback) {
+
+    resetDB: function (criterio, funcionCallback) {
         this.mongo.MongoClient.connect(this.app.get('db'), function (err, db) {
             if (err) {
                 funcionCallback(null);
@@ -24,7 +24,7 @@ module.exports = {
             }
         });
     },
-    //*/
+
 
     insertarUsuario: function (usuario, funcionCallback) {
         this.mongo.MongoClient.connect(this.app.get('db'), function (err, db) {
