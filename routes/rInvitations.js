@@ -2,48 +2,18 @@ module.exports = function (app, swig, gestorBD) {
 
     app.post('/invitations/send', function (req, res) {
 
-        let invitacion = {
-            emisor: req.session.usuario,
-            receptor: req.body.email,
-            aceptada: false
-        }
-
-        if (invitacion.emisor == null) {
-            res.redirect("/login");
-            return;
-        }
-
-        if (invitacion.receptor == null) {
-            req.session.error = "No se ha podido obtener el email del receptor";
+        if (req.body.email == null || req.session.usuario == null) {
+            req.session.error = "Error: No se ha podido obtener el email";
             res.redirect('/error');
             return;
         }
-
-        gestorBD.obtenerUsuarios({email: invitacion.receptor}, function (usuarios) {
-            if (usuarios == null || usuarios.length == 0) {
-                req.session.error = "El email del receptor no se encuentra en la base de datos";
-                res.redirect('/error');
-                return;
-            }
-            else{
-                invitacion.receptor = usuarios[0];
-            }
-        });
-
-        gestorBD.obtenerUsuarios({email: invitacion.emisor}, function (usuarios) {
-            if (usuarios == null || usuarios.length == 0) {
-                req.session.error = "El email del emisor no se encuentra en la base de datos";
-                res.redirect('/error');
-                return;
-            }
-            else{
-                invitacion.emisor = usuarios[0];
-            }
-        });
-
+        let invitacion = {
+            emisorEmail: req.session.usuario,
+            receptorEmail: req.body.email
+        };
         gestorBD.insertarInvitacion(invitacion, function (id) {
             if (id == null) {
-                req.session.error = "Error al insertar la invitacion en la base de datos";
+                req.session.error = "Error: No se ha podido insertar la invitacion en la base de datos";
                 res.redirect('/error');
             } else {
                 res.redirect('/users');
@@ -54,46 +24,69 @@ module.exports = function (app, swig, gestorBD) {
     app.get("/invitations", function (req, res) {
         let unitsPerPage = 100;
 
-        let receptor = req.session.usuario;
-
-        if (receptor == null) {
+        if (req.session.usuario == null) {
             res.redirect('/login');
             return;
         }
+        let criterio = {"receptorEmail": req.session.usuario};
+        criterio = {};
 
-        let criterio = {"receptor.email" : receptor};
-
+        //Obtenemos el numero de pagina de la query
         let pg = parseInt(req.query.pg); // Es String !!!
         if (req.query.pg == null) { // Puede no venir el param
             pg = 1;
         }
 
-        gestorBD.obtenerListaInvitaciones(criterio, pg, unitsPerPage, function (invitaciones, total) {
-            if (invitaciones == null) {
-                req.session.error = "Error al listar";
-                res.redirect('/error');
-            } else {
-                let ultimaPg = total / unitsPerPage;
-                if (total % unitsPerPage > 0) { // Sobran decimales
-                    ultimaPg = ultimaPg + 1;
-                }
-                let paginas = []; // paginas mostrar
-                for (let i = pg - 2; i <= pg + 2; i++) {
-                    if (i > 0 && i <= ultimaPg) {
-                        paginas.push(i);
+        //Obtenemos la lista de emisores de invitaciones para la que el usuario actual es receptor
+        gestorBD.obtenerListaInvitaciones(criterio, pg, unitsPerPage, function (invitaciones, total, emisores, paginas) {
+                if (invitaciones == null) {
+                    req.session.error = "Error: No se ha podido obtencioner la lista de invitaciones";
+                    res.redirect('/error');
+                } else {
+                    if (invitaciones.length == 0) {
+                        req.session.error = "No tienes peticiones pendientes";
+                        res.redirect('/error');
+                    } else {
+                        //Calculamos las paginas
+                        let ultimaPg = total / unitsPerPage;
+                        if (total % unitsPerPage > 0) { // Sobran decimales
+                            ultimaPg = ultimaPg + 1;
+                        }
+                        let paginas = [];
+                        for (let i = pg - 2; i <= pg + 2; i++) {
+                            if (i > 0 && i <= ultimaPg) {
+                                paginas.push(i);
+                            }
+                        }
+                        //Transformamos la lista de peticiones en un array de usuarios
+                        let emisores = [];
+                        for (let i = 0; i < invitaciones.length; i++) {
+                            emisores.push(invitaciones[i].emisorEmail);
+                        }
+
+                        let criterioUsers = {"email": {$in: emisores}};
+                        //Obtenemos la lista de usuarios de la base de datos
+                        gestorBD.obtenerUsuarios(criterioUsers, function (usuarios) {
+                            if (usuarios == null || usuarios.length < 1) {
+                                req.session.error = "Error: No se han podido obtener los usuarios";
+                                res.redirect('/error');
+                            } else {
+
+                                let respuesta = swig.renderFile('views/invitations/list.html',
+                                    {
+                                        emisores: usuarios,
+                                        paginas: paginas,
+                                        actual: pg,
+                                        loggedUser: req.session.usuario != null
+                                    });
+                                res.send(respuesta);
+                            }
+                        });
                     }
                 }
-                let respuesta = swig.renderFile('views/invitations/list.html',
-                    {
-                        invitations: invitaciones,
-                        paginas: paginas,
-                        actual: pg,
-                        loggedUser: req.session.usuario != null
-                    });
-                console.log("Obtenidas invitaciones: "+invitaciones.length);
-                res.send(respuesta);
             }
-        });
+        );
+
 
     });
 }

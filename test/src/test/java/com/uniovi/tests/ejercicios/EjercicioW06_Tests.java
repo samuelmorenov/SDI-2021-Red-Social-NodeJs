@@ -28,7 +28,6 @@ public class EjercicioW06_Tests extends BaseTests {
 		PO_HomeView.clickOption("login", "class", "btn btn-primary");
 		PO_LoginView.fillForm(UserList.usuarios(1).email, UserList.usuarios(1).password);
 		PO_PrivateView.accederPagina("friends-menu", "/invitations");
-		SeleniumUtils.esperarSegundos(5);
 		PO_View.checkElement("text", UserList.usuarios(0).name);
 	}
 
@@ -45,7 +44,8 @@ public class EjercicioW06_Tests extends BaseTests {
 		//Comprobar que no se puede volver a enviar
 		PO_HomeView.clickOption("login", "class", "btn btn-primary");
 		PO_LoginView.fillForm(UserList.usuarios(0).email, UserList.usuarios(0).password);
-		PO_HomeView.noEsClickable("sendButton2");
+		SeleniumUtils.esperarSegundos(2);
+		PO_HomeView.noEsClickable("sendButton-" + UserList.usuarios(1).email);
 	}
 
 }

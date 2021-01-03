@@ -4,10 +4,12 @@
 
 {% block contenido_principal %}
 
-<h1>Se ha producido un error</h1>
-
 {% if texto != null %}
 <h2>{{ texto }}</h2>
+{% endif %}
+
+{% if texto == null %}
+<h2>Se ha producido un error</h2>
 {% endif %}
 
 {% endblock %}

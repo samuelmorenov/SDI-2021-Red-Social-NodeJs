@@ -11,23 +11,24 @@
             <thead>
             <tr>
                 <th>Nombre</th>
+                <th>Email</th>
                 <th class="col-md-1"></th>
 
             </tr>
             </thead>
             <tbody>
-            {% for invitation in invitations %}
+            {% for emisor in emisores %}
             <tr>
-                <td>{{ invitation.emisor.name }}</td>
-                <td>{{ invitation.emisor.email }}</td>
+                <td>{{ emisor.name }}</td>
+                <td>{{ emisor.email }}</td>
                 <td>
                     <form action="/invitations/accept" method="post">
                         <button
                                 type="submit"
-                                id="sendButton-{{ invitation.emisor.email }}"
+                                id="sendButton-{{ emisor.email }}"
                                 class="btn btn-default"
                                 name="email"
-                                value="{{ invitation.emisor.email }}"
+                                value="{{ emisor.email }}"
                         >
                             Aceptar
                         </button>

@@ -26,7 +26,7 @@ module.exports = function (app, swig, gestorBD) {
 
         gestorBD.obtenerListaUsuarios(criterio, pg, unitsPerPage, function (users, total) {
             if (users == null) {
-                req.session.error = "Error al listar";
+                req.session.error = "Error: No se ha podido obtener la lista de usuarios";
                 res.redirect('/error');
             } else {
                 let ultimaPg = total / unitsPerPage;
