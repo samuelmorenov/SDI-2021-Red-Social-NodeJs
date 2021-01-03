@@ -40,13 +40,6 @@
                 <td>{{ user.lastName }}</td>
 
                 <td>
-                    {% if user.itsYou %}
-
-                    {% elseif user.isFriend %}
-                    Ya es tu amigo
-                    {% elseif user.invitationSended %}
-                    Solicitud enviada
-                    {% else %}
                     <form action="/invitations/send" method="post">
                         <button
                                 type="submit"
@@ -54,11 +47,11 @@
                                 class="btn btn-default"
                                 name="email"
                                 value="{{ user.email }}"
+                                {{ user.buttonDisabled }}
                         >
-                            Enviar Solicitud
+                            {{ user.buttonText }}
                         </button>
                     </form>
-                    {% endif %}
                 </td>
                 <!--
                 <td><a th:href="${'/user/details/' + user.id}" th:text="#{list.detalles}"></a></td>

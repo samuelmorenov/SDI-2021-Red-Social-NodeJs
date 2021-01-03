@@ -42,22 +42,43 @@ module.exports = {
         });
     },
 
-    obtenerListaUsuarios: function (criterio, pg, unitsPerPage, funcionCallback) {
+    obtenerListaPaginada: function (collectionName, criterio, pg, unitsPerPage, funcionCallback) {
         this.mongo.MongoClient.connect(this.app.get('db'), function (err, db) {
             if (err) {
                 funcionCallback(null);
             } else {
-                let collection = db.collection('usuarios');
+                let collection = db.collection(collectionName);
                 collection.count(function (err, count) {
                     collection.find(criterio).skip((pg - 1) * unitsPerPage).limit(unitsPerPage)
-                        .toArray(function (err, users) {
+                        .toArray(function (err, list) {
                             if (err) {
                                 funcionCallback(null);
                             } else {
-                                funcionCallback(users, count);
+                                funcionCallback(list, count);
                             }
                             db.close();
                         });
+                });
+            }
+        });
+    },
+
+    obtenerLista: function (collectionName, criterio, funcionCallback) {
+        this.mongo.MongoClient.connect(this.app.get('db'), function (err, db) {
+            if (err) {
+                funcionCallback(null);
+            } else {
+                let collection = db.collection(collectionName);
+                collection.count(function (err, count) {
+
+                    collection.find(criterio).toArray(function (err, list) {
+                        if (err) {
+                            funcionCallback(null);
+                        } else {
+                            funcionCallback(list, count);
+                        }
+                        db.close();
+                    });
                 });
             }
         });
@@ -76,27 +97,6 @@ module.exports = {
                         funcionCallback(result.ops[0]._id);
                     }
                     db.close();
-                });
-            }
-        });
-    },
-
-    obtenerListaInvitaciones: function (criterio, pg, unitsPerPage, funcionCallback) {
-        this.mongo.MongoClient.connect(this.app.get('db'), function (err, db) {
-            if (err) {
-                funcionCallback(null);
-            } else {
-                let collection = db.collection('invitaciones');
-                collection.count(function (err, count) {
-                    collection.find(criterio).skip((pg - 1) * unitsPerPage).limit(unitsPerPage)
-                        .toArray(function (err, invitations) {
-                            if (err) {
-                                funcionCallback(null);
-                            } else {
-                                funcionCallback(invitations, count);
-                            }
-                            db.close();
-                        });
                 });
             }
         });

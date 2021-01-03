@@ -1,30 +1,27 @@
 module.exports = function (app, swig, gestorBD) {
 
     app.get("/users", function (req, res) {
-
         let unitsPerPage = 100;
-
         let criterio = {};
 
         if (req.query.busqueda != null) {
             let busqueda = {
                 $or:
                     [
-                        { "email": { $regex: ".*" + req.query.busqueda + ".*" } },
-                        { "name": { $regex: ".*" + req.query.busqueda + ".*" } },
-                        { "lastName:": { $regex: ".*" + req.query.busqueda + ".*" } }
+                        {"email": {$regex: ".*" + req.query.busqueda + ".*"}},
+                        {"name": {$regex: ".*" + req.query.busqueda + ".*"}},
+                        {"lastName:": {$regex: ".*" + req.query.busqueda + ".*"}}
                     ]
             };
-            criterio = { $and: [criterio, busqueda] };
+            criterio = {$and: [criterio, busqueda]};
         }
-
 
         let pg = parseInt(req.query.pg); // Es String !!!
         if (req.query.pg == null) { // Puede no venir el param
             pg = 1;
         }
 
-        gestorBD.obtenerListaUsuarios(criterio, pg, unitsPerPage, function (users, total) {
+        gestorBD.obtenerListaPaginada('usuarios', criterio, pg, unitsPerPage, function (users, total) {
             if (users == null) {
                 req.session.error = "Error: No se ha podido obtener la lista de usuarios";
                 res.redirect('/error');
@@ -39,14 +36,45 @@ module.exports = function (app, swig, gestorBD) {
                         paginas.push(i);
                     }
                 }
-                let respuesta = swig.renderFile('views/users/list.html',
-                    {
-                        users: users,
-                        paginas: paginas,
-                        actual: pg,
-                        loggedUser: req.session.usuario != null
-                    });
-                res.send(respuesta);
+
+                gestorBD.obtenerLista('invitaciones', {}, function (invitaciones, total) {
+                    for (let i = 0; i < users.length; i++) {
+                        let user = users[i];
+
+                        user["buttonDisabled"] = 'enabled';//enabled / disabled
+                        user["buttonText"] = 'Enviar Solicitud';
+
+                        /*
+                        if (user.email = req.session.usuario) {
+                            user["buttonDisabled"] = 'disabled';//enabled / disabled
+                            user["buttonText"] = ' ';
+                        }
+                         */
+
+                        if (invitaciones != null) {
+                            for (let j = 0; j < invitaciones.length; j++) {
+                                if (invitaciones[j].receptorEmail == user.email) {
+                                    user["buttonDisabled"] = 'disabled';//enabled / disabled
+                                    user["buttonText"] = 'Solicitud recibida';
+                                }
+                                if (invitaciones[j].emisorEmail == user.email) {
+                                    user["buttonDisabled"] = 'disabled';//enabled / disabled
+                                    user["buttonText"] = 'Solicitud enviada';
+                                }
+                            }
+                        }
+                    }
+
+                    let respuesta = swig.renderFile('views/users/list.html',
+                        {
+                            users: users,
+                            paginas: paginas,
+                            actual: pg,
+                            loggedUser: req.session.usuario != null
+                        });
+                    res.send(respuesta);
+
+                });
             }
         });
 

@@ -2,9 +2,13 @@ module.exports = function (app, swig, gestorBD) {
 
     app.post('/invitations/send', function (req, res) {
 
-        if (req.body.email == null || req.session.usuario == null) {
+        if (req.body.email == null) {
             req.session.error = "Error: No se ha podido obtener el email";
             res.redirect('/error');
+            return;
+        }
+        if (req.session.usuario == null) {
+            res.redirect('/login');
             return;
         }
         let invitacion = {
@@ -38,7 +42,7 @@ module.exports = function (app, swig, gestorBD) {
         }
 
         //Obtenemos la lista de emisores de invitaciones para la que el usuario actual es receptor
-        gestorBD.obtenerListaInvitaciones(criterio, pg, unitsPerPage, function (invitaciones, total, emisores, paginas) {
+        gestorBD.obtenerListaPaginada('invitaciones', criterio, pg, unitsPerPage, function (invitaciones, total, emisores, paginas) {
                 if (invitaciones == null) {
                     req.session.error = "Error: No se ha podido obtencioner la lista de invitaciones";
                     res.redirect('/error');
