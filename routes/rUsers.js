@@ -26,7 +26,8 @@ module.exports = function (app, swig, gestorBD) {
 
         gestorBD.obtenerListaUsuarios(criterio, pg, unitsPerPage, function (users, total) {
             if (users == null) {
-                res.send("Error al listar ");
+                req.session.error = "Error al listar";
+                res.redirect('/error');
             } else {
                 let ultimaPg = total / unitsPerPage;
                 if (total % unitsPerPage > 0) { // Sobran decimales

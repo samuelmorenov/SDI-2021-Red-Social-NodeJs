@@ -4,7 +4,7 @@ module.exports = function (app, swig, gestorBD) {
 
         if (req.body.password != req.body.passwordConfirm) {
             res.redirect("/signup" +
-                "?mensaje="+
+                "?mensaje=" +
                 "Las contraseñas no coinciden." +
                 "&tipoMensaje=alert-danger ");
         } else {
@@ -18,7 +18,7 @@ module.exports = function (app, swig, gestorBD) {
             gestorBD.obtenerUsuarios(criterio, function (usuarios) {
                 if (usuarios.length > 0) {
                     res.redirect("/signup" +
-                        "?mensaje="+
+                        "?mensaje=" +
                         "Ese email ya existe." +
                         "&tipoMensaje=alert-danger ");
                 } else {
@@ -32,7 +32,7 @@ module.exports = function (app, swig, gestorBD) {
                     gestorBD.insertarUsuario(usuario, function (id) {
                         if (id == null) {
                             res.redirect("/signup" +
-                                "?mensaje="+
+                                "?mensaje=" +
                                 "Error al registar usuario." +
                                 "&tipoMensaje=alert-danger ");
                         } else {
@@ -65,7 +65,7 @@ module.exports = function (app, swig, gestorBD) {
             if (usuarios == null || usuarios.length == 0) {
                 req.session.usuario = null;
                 res.redirect("/login" +
-                    "?mensaje="+
+                    "?mensaje=" +
                     "La combinacion usuario-contraseña es incorrecta." +
                     "&tipoMensaje=alert-danger ");
 
@@ -87,8 +87,13 @@ module.exports = function (app, swig, gestorBD) {
         res.send(respuesta);
     });
 
-    app.get('/error', function (req, res) {
-        let respuesta = swig.renderFile('views/error.html', {loggedUser: req.session.usuario != null});
+    app.get("/error", function (req, res) {
+        let texto = req.session.error;
+        req.session.error = null;
+        let respuesta = swig.renderFile('views/error.html', {
+            loggedUser: req.session.usuario != null,
+            texto: texto
+        });
         res.send(respuesta);
     });
 };

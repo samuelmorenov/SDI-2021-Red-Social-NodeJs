@@ -14,14 +14,14 @@ module.exports = function (app, swig, gestorBD) {
         }
 
         if (invitacion.receptor == null) {
-            //console.log("El email del receptor es null");
+            req.session.error = "No se ha podido obtener el email del receptor";
             res.redirect('/error');
             return;
         }
 
         gestorBD.obtenerUsuarios({email: invitacion.receptor}, function (usuarios) {
             if (usuarios == null || usuarios.length == 0) {
-                //console.log("El email del receptor no se encuentra en la base de datos");
+                req.session.error = "El email del receptor no se encuentra en la base de datos";
                 res.redirect('/error');
                 return;
             }
@@ -32,6 +32,7 @@ module.exports = function (app, swig, gestorBD) {
 
         gestorBD.obtenerUsuarios({email: invitacion.emisor}, function (usuarios) {
             if (usuarios == null || usuarios.length == 0) {
+                req.session.error = "El email del emisor no se encuentra en la base de datos";
                 res.redirect('/error');
                 return;
             }
@@ -42,7 +43,7 @@ module.exports = function (app, swig, gestorBD) {
 
         gestorBD.insertarInvitacion(invitacion, function (id) {
             if (id == null) {
-                //console.log("Error al insertar la invitacion en la base de datos");
+                req.session.error = "Error al insertar la invitacion en la base de datos";
                 res.redirect('/error');
             } else {
                 res.redirect('/users');
@@ -69,7 +70,8 @@ module.exports = function (app, swig, gestorBD) {
 
         gestorBD.obtenerListaInvitaciones(criterio, pg, unitsPerPage, function (invitaciones, total) {
             if (invitaciones == null) {
-                res.send("Error al listar ");
+                req.session.error = "Error al listar";
+                res.redirect('/error');
             } else {
                 let ultimaPg = total / unitsPerPage;
                 if (total % unitsPerPage > 0) { // Sobran decimales
