@@ -83,12 +83,12 @@ module.exports = function (app, swig, gestorBD) {
     });
 
     app.get("/index", function (req, res) {
-        let respuesta = swig.renderFile('views/index.html', {});
+        let respuesta = swig.renderFile('views/index.html', {loggedUser: req.session.usuario != null});
         res.send(respuesta);
     });
 
     app.get('/error', function (req, res) {
-        let respuesta = swig.renderFile('views/error.html', {});
+        let respuesta = swig.renderFile('views/error.html', {loggedUser: req.session.usuario != null});
         res.send(respuesta);
     });
 };

@@ -36,4 +36,9 @@ module.exports = function (app, swig, gestorBD) {
             }
         });
     });
+
+    app.get("/invitations", function (req, res) {
+        let respuesta = swig.renderFile('views/invitations/list.html', {loggedUser: req.session.usuario != null});
+        res.send(respuesta);
+    });
 }

@@ -118,6 +118,7 @@ app.use(function (err, req, res, next) {
 require("./routes/rLogInSignUp.js")(app, swig, gestorBD);
 require("./routes/rUsers.js")(app, swig, gestorBD);
 require("./routes/rInvitations.js")(app, swig, gestorBD);
+require("./routes/rFriends.js")(app, swig, gestorBD);
 require("./routes/rTests.js")(app, mongo);
 
 
