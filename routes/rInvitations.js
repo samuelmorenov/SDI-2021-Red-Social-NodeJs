@@ -1,12 +1,39 @@
 module.exports = function (app, swig, gestorBD) {
 
-    app.get('/invitations/send/:email', function (req, res) {
+    app.post('/invitations/send', function (req, res) {
 
-        let id = req.params.email;
+        let invitacion = {
+            emisor: req.session.usuario,
+            receptor: req.body.email,
+            aceptada: false
+        }
 
-        res.send(String("Peticion enviada a user.id: "+id));
+        if (invitacion.emisor == null) {
+            res.redirect("/login");
+            return;
+        }
 
+        if (invitacion.receptor == null) {
+            //console.log("El email del receptor es null");
+            res.redirect('/error');
+            return;
+        }
 
+        gestorBD.obtenerUsuarios({email: invitacion.receptor}, function (usuarios) {
+            if (usuarios == null || usuarios.length == 0) {
+                //console.log("El email del receptor no se encuentra en la base de datos");
+                res.redirect('/error');
+                return;
+            }
+        });
+
+        gestorBD.insertarInvitacion(invitacion, function (id) {
+            if (id == null) {
+                //console.log("Error al insertar la invitacion en la base de datos");
+                res.redirect('/error');
+            } else {
+                res.redirect('/users');
+            }
+        });
     });
-
 }

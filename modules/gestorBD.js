@@ -42,15 +42,15 @@ module.exports = {
         });
     },
 
-    obtenerListaUsuarios : function(criterio,pg, usersPorPagina,funcionCallback){
-        this.mongo.MongoClient.connect(this.app.get('db'), function(err, db) {
+    obtenerListaUsuarios: function (criterio, pg, usersPorPagina, funcionCallback) {
+        this.mongo.MongoClient.connect(this.app.get('db'), function (err, db) {
             if (err) {
                 funcionCallback(null);
             } else {
                 let collection = db.collection('usuarios');
-                collection.count(function(err, count){
-                    collection.find(criterio).skip( (pg-1)*usersPorPagina ).limit( usersPorPagina )
-                        .toArray(function(err, users) {
+                collection.count(function (err, count) {
+                    collection.find(criterio).skip((pg - 1) * usersPorPagina).limit(usersPorPagina)
+                        .toArray(function (err, users) {
                             if (err) {
                                 funcionCallback(null);
                             } else {
@@ -58,6 +58,24 @@ module.exports = {
                             }
                             db.close();
                         });
+                });
+            }
+        });
+    },
+
+    insertarInvitacion: function (invitacion, funcionCallback) {
+        this.mongo.MongoClient.connect(this.app.get('db'), function (err, db) {
+            if (err) {
+                funcionCallback(null);
+            } else {
+                let collection = db.collection('invitaciones');
+                collection.insert(invitacion, function (err, result) {
+                    if (err) {
+                        funcionCallback(null);
+                    } else {
+                        funcionCallback(result.ops[0]._id);
+                    }
+                    db.close();
                 });
             }
         });

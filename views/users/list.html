@@ -33,30 +33,30 @@
             </thead>
             <tbody>
             {% for user in users %}
+
             <tr>
                 <td>{{ user.email }}</td>
                 <td>{{ user.name }}</td>
                 <td>{{ user.lastName }}</td>
 
                 <td>
-
-
-                {% if user.isFriend %}
-                    <td>Ya es tu amigo</td>
-                {% elseif user.invitationSended %}
-                    <td>Solicitud enviada</td>
-                {% else %}
-                    <td>
-                        <form class="navbar-form" action="/invitations/send/{{ user.email}}">
-                            <button
-                                    type="submit"
-                                    id="sendButton-{{ user.email }}"
-                                    class="btn btn-default">
-                                Enviar Solicitud
-                            </button>
-                        </form>
-                    </td>
-                {% endif %}
+                    {% if user.isFriend %}
+                    Ya es tu amigo
+                    {% elseif user.invitationSended %}
+                    Solicitud enviada
+                    {% else %}
+                    <form action="/invitations/send" method="post">
+                        <button
+                                type="submit"
+                                id="sendButton-{{ user.email }}"
+                                class="btn btn-default"
+                                name="email"
+                                value="{{ user.email }}"
+                        >
+                            Enviar Solicitud
+                        </button>
+                    </form>
+                    {% endif %}
                 </td>
                 <!--
                 <td><a th:href="${'/user/details/' + user.id}" th:text="#{list.detalles}"></a></td>
@@ -64,6 +64,7 @@
                 <td><a th:href="${'/user/delete/' + user.id}" th:text="#{list.eliminar}"></a></td>
                 -->
             </tr>
+
             {% endfor %}
             </tbody>
         </table>
