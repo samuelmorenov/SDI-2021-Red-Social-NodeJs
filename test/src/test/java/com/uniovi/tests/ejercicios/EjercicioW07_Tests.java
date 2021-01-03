@@ -21,7 +21,7 @@ public class EjercicioW07_Tests extends BaseTests {
 		PO_Invitation.enviarPeticion(1, 2);
 		PO_HomeView.clickOption("login", "class", "btn btn-primary");
 		PO_LoginView.fillForm(UserList.usuarios(2).email, UserList.usuarios(2).password);
-		PO_PrivateView.accederPagina("friends-menu", "/friend/invitationlist");
+		PO_PrivateView.accederPagina("friends-menu", "/invitations");
 		PO_View.checkElement("text", UserList.usuarios(0).name);
 		PO_View.checkElement("text", UserList.usuarios(1).name);
 	}
