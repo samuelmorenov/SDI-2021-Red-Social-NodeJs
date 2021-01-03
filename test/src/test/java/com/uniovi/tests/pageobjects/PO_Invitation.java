@@ -19,7 +19,7 @@ public class PO_Invitation extends PO_NavView {
 		PO_RegisterView.fillForm(email, name, "Test_Invitation", password, password);
 		PO_LoginView.fillForm(email, password);
 		int correccionDeId = user + 1;
-		PO_HomeView.clickId("sendButton-" + correccionDeId);
+		PO_HomeView.clickId("sendButton-" + UserList.usuarios(correccionDeId).email);
 		PO_HomeView.clickOption("logout", "class", "btn btn-primary");
 		return email;
 	}
