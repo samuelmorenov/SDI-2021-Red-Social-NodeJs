@@ -28,10 +28,8 @@ public class MySocialNetwork_Tests {
 	@BeforeClass
 	static public void begin() {
 		DriverSingleton.setDriver();
-		
 		//TODO: Para que no se resetee la base de datos comentar esta linea
-		DriverSingleton.getDriver()
-			.navigate().to("https://localhost:8081/test/resetDB");
+		DriverSingleton.getDriver().navigate().to("https://localhost:8081/test/resetDB");
 	}
 
 	// Al finalizar la última prueba
