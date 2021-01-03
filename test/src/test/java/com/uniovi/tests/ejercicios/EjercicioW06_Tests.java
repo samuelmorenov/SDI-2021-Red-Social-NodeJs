@@ -22,12 +22,12 @@ public class EjercicioW06_Tests extends BaseTests {
 	@Test
 	public void Prueba_15() {
 		//Enviar peticion
-		PO_Invitation.enviarPeticion(driver, 0, 1);
+		PO_Invitation.enviarPeticion(0, 1);
 		//Comprobar que existe
-		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
-		PO_LoginView.fillForm(driver, UserList.usuarios(1).email, UserList.usuarios(1).password);
-		PO_PrivateView.accederPagina(driver, "friends-menu", "/friend/invitationlist");
-		PO_View.checkElement(driver, "text", UserList.usuarios(0).name);
+		PO_HomeView.clickOption("login", "class", "btn btn-primary");
+		PO_LoginView.fillForm(UserList.usuarios(1).email, UserList.usuarios(1).password);
+		PO_PrivateView.accederPagina("friends-menu", "/friend/invitationlist");
+		PO_View.checkElement("text", UserList.usuarios(0).name);
 	}
 
 	/**
@@ -39,11 +39,11 @@ public class EjercicioW06_Tests extends BaseTests {
 	@Test
 	public void Prueba_16() {
 		//Enviar peticion
-		PO_Invitation.enviarPeticion(driver, 0, 1);
+		PO_Invitation.enviarPeticion(0, 1);
 		//Comprobar que no se puede volver a enviar
-		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
-		PO_LoginView.fillForm(driver, UserList.usuarios(0).email, UserList.usuarios(0).password);
-		PO_HomeView.noEsClickable(driver, "sendButton2");
+		PO_HomeView.clickOption("login", "class", "btn btn-primary");
+		PO_LoginView.fillForm(UserList.usuarios(0).email, UserList.usuarios(0).password);
+		PO_HomeView.noEsClickable("sendButton2");
 	}
 
 }

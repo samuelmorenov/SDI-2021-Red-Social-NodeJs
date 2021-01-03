@@ -5,11 +5,14 @@ import java.util.List;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import com.uniovi.tests.DriverSingleton;
 import com.uniovi.tests.util.SeleniumUtils;
 
 public class PO_View {
 
 	protected static int timeout = 2;
+	
+	protected static WebDriver driver = DriverSingleton.getDriver();
 
 	public static int getTimeout() {
 		return timeout;
@@ -28,12 +31,12 @@ public class PO_View {
 	 * @param text:
 	 * @return Se retornará la lista de elementos resultantes de la búsqueda.
 	 */
-	static public List<WebElement> checkElement(WebDriver driver, String type, String text) {
-		List<WebElement> elementos = SeleniumUtils.EsperaCargaPagina(driver, type, text, getTimeout());
+	static public List<WebElement> checkElement(String type, String text) {
+		List<WebElement> elementos = SeleniumUtils.EsperaCargaPagina(type, text, getTimeout());
 		return elementos;
 	}
 
-	static public void checkNoElement(WebDriver driver, String text) {
-		SeleniumUtils.EsperaCargaPaginaNoTexto(driver, text, getTimeout());
+	static public void checkNoElement(String text) {
+		SeleniumUtils.EsperaCargaPaginaNoTexto(text, getTimeout());
 	}
 }

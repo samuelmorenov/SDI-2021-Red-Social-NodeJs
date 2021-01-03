@@ -11,7 +11,11 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import com.uniovi.tests.DriverSingleton;
+
 public class SeleniumUtils {
+	
+	private static WebDriver driver = DriverSingleton.getDriver();
 
 	
 	/**
@@ -19,7 +23,7 @@ public class SeleniumUtils {
 	 * @param driver: apuntando al navegador abierto actualmente.
 	 * @param texto: texto a buscar
 	 */
-	static public void textoPresentePagina(WebDriver driver, String texto)
+	static public void textoPresentePagina(String texto)
 	{
 		List<WebElement> list = driver.findElements(By.xpath("//*[contains(text(),'" + texto + "')]"));		
 		assertTrue("Texto " + texto + " no localizado!", list.size() > 0);			
@@ -30,7 +34,7 @@ public class SeleniumUtils {
 	 * @param driver: apuntando al navegador abierto actualmente.
 	 * @param texto: texto a buscar
 	 */
-	static public void textoNoPresentePagina(WebDriver driver, String texto)
+	static public void textoNoPresentePagina(String texto)
 	{
 		List<WebElement> list = driver.findElements(By.xpath("//*[contains(text(),'" + texto + "')]"));		
 		assertTrue("Texto " + texto + " aun presente !", list.size() == 0);			
@@ -42,7 +46,7 @@ public class SeleniumUtils {
 	 * @param texto: texto a buscar
 	 * @param timeout: el tiempo máximo que se esperará por la aparición del texto a buscar
 	 */
-	static public void EsperaCargaPaginaNoTexto(WebDriver driver, String texto, int timeout)
+	static public void EsperaCargaPaginaNoTexto( String texto, int timeout)
 	{
 		Boolean resultado = 
 				(new WebDriverWait(driver, timeout)).until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//*[contains(text(),'" + texto + "')]")));
@@ -58,7 +62,7 @@ public class SeleniumUtils {
 	 * @param timeout: el tiempo máximo que se esperará por la aparición del elemento a buscar con xpath
 	 * @return  Se retornará la lista de elementos resultantes de la búsqueda con xpath.
 	 */
-	static public List<WebElement> EsperaCargaPaginaxpath(WebDriver driver, String xpath, int timeout)
+	static public List<WebElement> EsperaCargaPaginaxpath(String xpath, int timeout)
 	{
 		WebElement resultado = 
 				(new WebDriverWait(driver, timeout)).until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
@@ -78,7 +82,7 @@ public class SeleniumUtils {
 	 * @param timeout: el tiempo máximo que se esperará por la apareción del elemento a buscar con criterio/text.
 	 * @return Se retornará la lista de elementos resultantes de la búsqueda.
 	 */
-	static public List<WebElement> EsperaCargaPagina(WebDriver driver, String criterio, String text, int timeout)
+	static public List<WebElement> EsperaCargaPagina(String criterio, String text, int timeout)
 	{
 		String busqueda;
 		if (criterio.equals("id")) busqueda = "//*[contains(@id,'" + text + "')]";
@@ -87,7 +91,7 @@ public class SeleniumUtils {
 		else if (criterio.equals("free")) busqueda = text;
 		else busqueda = "//*[contains("+criterio+",'" + text + "')]";
 
-		return EsperaCargaPaginaxpath(driver, busqueda, timeout);
+		return EsperaCargaPaginaxpath(busqueda, timeout);
 	}
 
 
@@ -97,7 +101,7 @@ public class SeleniumUtils {
 	 * @param driver: apuntando al navegador abierto actualmente.
 	 * @param segundos: Segundos de bloqueo de la ejecución en el navegador.
 	 */
-	static public void esperarSegundos(WebDriver driver, int segundos){
+	static public void esperarSegundos(int segundos){
 
 		synchronized(driver){
 			try {

@@ -19,38 +19,38 @@ public class EjercicioW01_Tests extends BaseTests {
 	/** Registro de Usuario con datos válidos. */
 	@Test
 	public void Prueba_01() {
-		PO_HomeView.clickOption(driver, "signup", "class", "btn btn-primary");
-		PO_RegisterView.fillForm(driver, randomEmail(), UserList.usuariosTest(0).name,
+		PO_HomeView.clickOption("signup", "class", "btn btn-primary");
+		PO_RegisterView.fillForm(randomEmail(), UserList.usuariosTest(0).name,
 				UserList.usuariosTest(0).lastName, UserList.usuariosTest(0).password,
 				UserList.usuariosTest(0).password);
-		PO_View.checkElement(driver, "text", "Nuevo usuario registrado.");
+		PO_View.checkElement("text", "Nuevo usuario registrado.");
 	}
 
 	/** Registro de Usuario con datos inválidos: email vacío */
 	@Test
 	public void Prueba_02_a() {
-		PO_HomeView.clickOption(driver, "signup", "class", "btn btn-primary");
-		PO_RegisterView.fillForm(driver, "", UserList.usuariosTest(0).name, UserList.usuariosTest(0).lastName,
+		PO_HomeView.clickOption("signup", "class", "btn btn-primary");
+		PO_RegisterView.fillForm("", UserList.usuariosTest(0).name, UserList.usuariosTest(0).lastName,
 				UserList.usuariosTest(0).password, UserList.usuariosTest(0).password);
-		PO_View.checkNoElement(driver, "Nuevo usuario registrado.");
+		PO_View.checkNoElement( "Nuevo usuario registrado.");
 	}
 
 	/** Registro de Usuario con datos inválidos: nombre vacío */
 	@Test
 	public void Prueba_02_b() {
-		PO_HomeView.clickOption(driver, "signup", "class", "btn btn-primary");
-		PO_RegisterView.fillForm(driver, randomEmail(), "", UserList.usuariosTest(0).lastName,
+		PO_HomeView.clickOption("signup", "class", "btn btn-primary");
+		PO_RegisterView.fillForm(randomEmail(), "", UserList.usuariosTest(0).lastName,
 				UserList.usuariosTest(0).password, UserList.usuariosTest(0).password);
-		PO_View.checkNoElement(driver, "Nuevo usuario registrado.");
+		PO_View.checkNoElement("Nuevo usuario registrado.");
 	}
 
 	/** Registro de Usuario con datos inválidos: apellidos vacío */
 	@Test
 	public void Prueba_02_c() {
-		PO_HomeView.clickOption(driver, "signup", "class", "btn btn-primary");
-		PO_RegisterView.fillForm(driver, randomEmail(), UserList.usuariosTest(0).name, "",
+		PO_HomeView.clickOption("signup", "class", "btn btn-primary");
+		PO_RegisterView.fillForm(randomEmail(), UserList.usuariosTest(0).name, "",
 				UserList.usuariosTest(0).password, UserList.usuariosTest(0).password);
-		PO_View.checkNoElement(driver, "Nuevo usuario registrado.");
+		PO_View.checkNoElement("Nuevo usuario registrado.");
 	}
 
 	/**
@@ -58,21 +58,21 @@ public class EjercicioW01_Tests extends BaseTests {
 	 */
 	@Test
 	public void Prueba_03() {
-		PO_HomeView.clickOption(driver, "signup", "class", "btn btn-primary");
-		PO_RegisterView.fillForm(driver, randomEmail(), UserList.usuariosTest(0).name,
+		PO_HomeView.clickOption("signup", "class", "btn btn-primary");
+		PO_RegisterView.fillForm( randomEmail(), UserList.usuariosTest(0).name,
 				UserList.usuariosTest(0).lastName, UserList.usuariosTest(0).password,
 				UserList.usuariosTest(0).password + "e");
-		PO_View.checkElement(driver, "text", "Las contraseñas no coinciden.");
+		PO_View.checkElement("text", "Las contraseñas no coinciden.");
 
 	}
 
 	/** Registro de Usuario con datos inválidos: email existente */
 	@Test
 	public void Prueba_04() {
-		PO_HomeView.clickOption(driver, "signup", "class", "btn btn-primary");
-		PO_RegisterView.fillForm(driver, UserList.usuarios(0).email, UserList.usuariosTest(0).name,
+		PO_HomeView.clickOption("signup", "class", "btn btn-primary");
+		PO_RegisterView.fillForm(UserList.usuarios(0).email, UserList.usuariosTest(0).name,
 				UserList.usuariosTest(0).lastName, UserList.usuariosTest(0).password,
 				UserList.usuariosTest(0).password);
-		PO_View.checkElement(driver, "text", "Ese email ya existe.");
+		PO_View.checkElement("text", "Ese email ya existe.");
 	}
 }

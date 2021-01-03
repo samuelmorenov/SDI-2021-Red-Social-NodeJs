@@ -1,12 +1,11 @@
 package com.uniovi.tests.pageobjects;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 public class PO_Search extends PO_NavView {
 
-	static public void search(WebDriver driver, String text) {
+	static public void search(String text) {
 
 		WebElement busqueda = driver.findElement(By.name("busqueda"));
 		busqueda.click();

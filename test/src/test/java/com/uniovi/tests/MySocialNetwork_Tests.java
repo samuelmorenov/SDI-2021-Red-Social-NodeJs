@@ -12,12 +12,13 @@ import com.uniovi.tests.ejercicios.*;
 
 @RunWith(Suite.class)
 @SuiteClasses({ 
-	//CreateUsersTest.class
-	//EjercicioW01_Tests.class,
-	//EjercicioW02_Tests.class,
-	//EjercicioW03_Tests.class,
-	//EjercicioW04_Tests.class,
-	//EjercicioW05_Tests.class,
+	/*/
+	EjercicioW01_Tests.class,
+	EjercicioW02_Tests.class,
+	EjercicioW03_Tests.class,
+	EjercicioW04_Tests.class,
+	EjercicioW05_Tests.class,
+	//*/
 	EjercicioW06_Tests.class
 })
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)

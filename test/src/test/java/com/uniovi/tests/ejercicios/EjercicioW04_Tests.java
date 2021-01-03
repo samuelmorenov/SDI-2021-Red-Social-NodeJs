@@ -14,11 +14,11 @@ public class EjercicioW04_Tests extends BaseTests {
 	 */
 	@Test
 	public void Prueba_11() {
-		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
-		PO_LoginView.fillForm(driver, UserList.usuarios(0).email, UserList.usuarios(0).password);
-		PO_View.checkElement(driver, "text", UserList.usuarios(1).email);
-		PO_View.checkElement(driver, "text", UserList.usuarios(2).email);
-		PO_View.checkElement(driver, "text", UserList.usuarios(3).email);
-		PO_View.checkElement(driver, "text", UserList.usuarios(4).email);
+		PO_HomeView.clickOption("login", "class", "btn btn-primary");
+		PO_LoginView.fillForm(UserList.usuarios(0).email, UserList.usuarios(0).password);
+		PO_View.checkElement("text", UserList.usuarios(1).email);
+		PO_View.checkElement("text", UserList.usuarios(2).email);
+		PO_View.checkElement("text", UserList.usuarios(3).email);
+		PO_View.checkElement("text", UserList.usuarios(4).email);
 	}
 }

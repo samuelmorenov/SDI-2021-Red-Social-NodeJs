@@ -17,9 +17,9 @@ public class EjercicioW02_Tests extends BaseTests {
 	 */
 	@Test
 	public void Prueba_05() {
-		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
-		PO_LoginView.fillForm(driver, UserList.usuarios(0).email, UserList.usuarios(0).password);
-		PO_View.checkElement(driver, "text", "Los usuarios que actualmente figuran en el sistema son los siguientes:");
+		PO_HomeView.clickOption("login", "class", "btn btn-primary");
+		PO_LoginView.fillForm(UserList.usuarios(0).email, UserList.usuarios(0).password);
+		PO_View.checkElement("text", "Los usuarios que actualmente figuran en el sistema son los siguientes:");
 	}
 
 	/**
@@ -28,9 +28,9 @@ public class EjercicioW02_Tests extends BaseTests {
 	 */
 	@Test
 	public void Prueba_06() {
-		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
-		PO_LoginView.fillForm(driver, "", "");
-		PO_View.checkNoElement(driver, "Los usuarios que actualmente figuran en el sistema son los siguientes:");
+		PO_HomeView.clickOption("login", "class", "btn btn-primary");
+		PO_LoginView.fillForm("", "");
+		PO_View.checkNoElement("Los usuarios que actualmente figuran en el sistema son los siguientes:");
 	}
 
 	/**
@@ -39,9 +39,9 @@ public class EjercicioW02_Tests extends BaseTests {
 	 */
 	@Test
 	public void Prueba_07() {
-		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
-		PO_LoginView.fillForm(driver, UserList.usuarios(0).email, "incorrecta");
-		PO_View.checkElement(driver, "text", "La combinacion usuario-contraseña es incorrecta.");
+		PO_HomeView.clickOption("login", "class", "btn btn-primary");
+		PO_LoginView.fillForm(UserList.usuarios(0).email, "incorrecta");
+		PO_View.checkElement("text", "La combinacion usuario-contraseña es incorrecta.");
 	}
 
 	/**
@@ -50,9 +50,9 @@ public class EjercicioW02_Tests extends BaseTests {
 	 */
 	@Test
 	public void Prueba_08() {
-		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
-		PO_LoginView.fillForm(driver, "email_inexistente@error.com", "incorrecta");
-		PO_View.checkElement(driver, "text", "La combinacion usuario-contraseña es incorrecta.");
+		PO_HomeView.clickOption("login", "class", "btn btn-primary");
+		PO_LoginView.fillForm("email_inexistente@error.com", "incorrecta");
+		PO_View.checkElement("text", "La combinacion usuario-contraseña es incorrecta.");
 	}
 
 }

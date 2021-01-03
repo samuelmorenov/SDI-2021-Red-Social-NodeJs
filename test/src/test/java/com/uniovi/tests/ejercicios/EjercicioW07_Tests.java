@@ -17,12 +17,12 @@ public class EjercicioW07_Tests extends BaseTests {
 	 */
 	@Test
 	public void Prueba_17() {
-		PO_Invitation.enviarPeticion(driver, 0, 2);
-		PO_Invitation.enviarPeticion(driver, 1, 2);
-		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
-		PO_LoginView.fillForm(driver, UserList.usuarios(2).email, UserList.usuarios(2).password);
-		PO_PrivateView.accederPagina(driver, "friends-menu", "/friend/invitationlist");
-		PO_View.checkElement(driver, "text", UserList.usuarios(0).name);
-		PO_View.checkElement(driver, "text", UserList.usuarios(1).name);
+		PO_Invitation.enviarPeticion(0, 2);
+		PO_Invitation.enviarPeticion(1, 2);
+		PO_HomeView.clickOption("login", "class", "btn btn-primary");
+		PO_LoginView.fillForm(UserList.usuarios(2).email, UserList.usuarios(2).password);
+		PO_PrivateView.accederPagina("friends-menu", "/friend/invitationlist");
+		PO_View.checkElement("text", UserList.usuarios(0).name);
+		PO_View.checkElement("text", UserList.usuarios(1).name);
 	}
 }

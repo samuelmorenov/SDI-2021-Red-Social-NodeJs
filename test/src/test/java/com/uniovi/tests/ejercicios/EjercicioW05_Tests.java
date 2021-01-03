@@ -20,13 +20,13 @@ public class EjercicioW05_Tests extends BaseTests {
 	 */
 	@Test
 	public void Prueba_12() {
-		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
-		PO_LoginView.fillForm(driver, UserList.usuarios(0).email, UserList.usuarios(0).password);
-		PO_Search.search(driver, "");
-		PO_View.checkElement(driver, "text", UserList.usuarios(1).email);
-		PO_View.checkElement(driver, "text", UserList.usuarios(2).email);
-		PO_View.checkElement(driver, "text", UserList.usuarios(3).email);
-		PO_View.checkElement(driver, "text", UserList.usuarios(4).email);
+		PO_HomeView.clickOption("login", "class", "btn btn-primary");
+		PO_LoginView.fillForm(UserList.usuarios(0).email, UserList.usuarios(0).password);
+		PO_Search.search("");
+		PO_View.checkElement("text", UserList.usuarios(1).email);
+		PO_View.checkElement("text", UserList.usuarios(2).email);
+		PO_View.checkElement("text", UserList.usuarios(3).email);
+		PO_View.checkElement("text", UserList.usuarios(4).email);
 	}
 
 	/**
@@ -35,10 +35,10 @@ public class EjercicioW05_Tests extends BaseTests {
 	 */
 	@Test
 	public void Prueba_13() {
-		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
-		PO_LoginView.fillForm(driver, UserList.usuarios(0).email, UserList.usuarios(0).password);
-		PO_Search.search(driver, "textoInexistente");
-		SeleniumUtils.EsperaCargaPaginaNoTexto(driver, "@email", PO_View.getTimeout());
+		PO_HomeView.clickOption("login", "class", "btn btn-primary");
+		PO_LoginView.fillForm(UserList.usuarios(0).email, UserList.usuarios(0).password);
+		PO_Search.search("textoInexistente");
+		SeleniumUtils.EsperaCargaPaginaNoTexto("@email", PO_View.getTimeout());
 	}
 
 	/**
@@ -48,11 +48,11 @@ public class EjercicioW05_Tests extends BaseTests {
 	 */
 	@Test
 	public void Prueba_14() {
-		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
-		PO_LoginView.fillForm(driver, UserList.usuarios(0).email, UserList.usuarios(0).password);
-		PO_Search.search(driver, "ma");
-		PO_View.checkElement(driver, "text", "maria@email.com");
-		PO_View.checkElement(driver, "text", "marta@email.com");
+		PO_HomeView.clickOption("login", "class", "btn btn-primary");
+		PO_LoginView.fillForm(UserList.usuarios(0).email, UserList.usuarios(0).password);
+		PO_Search.search("ma");
+		PO_View.checkElement("text", "maria@email.com");
+		PO_View.checkElement("text", "marta@email.com");
 		//En este test estan puestos los email directamente, si no funciona comprobar la base de datos
 	}
 }

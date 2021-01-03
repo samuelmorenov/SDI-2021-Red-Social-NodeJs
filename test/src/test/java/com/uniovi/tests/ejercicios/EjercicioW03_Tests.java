@@ -17,10 +17,10 @@ public class EjercicioW03_Tests extends BaseTests {
 	 */
 	@Test
 	public void Prueba_09() {
-		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
-		PO_LoginView.fillForm(driver, UserList.usuarios(0).email, UserList.usuarios(0).password);
-		PO_HomeView.clickOption(driver, "logout", "class", "btn btn-primary");
-		PO_View.checkElement(driver, "text", "Identifícate");
+		PO_HomeView.clickOption("login", "class", "btn btn-primary");
+		PO_LoginView.fillForm(UserList.usuarios(0).email, UserList.usuarios(0).password);
+		PO_HomeView.clickOption("logout", "class", "btn btn-primary");
+		PO_View.checkElement("text", "Identifícate");
 	}
 
 	/**
@@ -29,10 +29,10 @@ public class EjercicioW03_Tests extends BaseTests {
 	 */
 	@Test
 	public void Prueba_10() {
-		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
-		PO_LoginView.fillForm(driver, UserList.usuarios(0).email, UserList.usuarios(0).password);
-		PO_HomeView.clickOption(driver, "logout", "class", "btn btn-primary");
-		PO_View.checkNoElement(driver, "Desconectarse");
+		PO_HomeView.clickOption("login", "class", "btn btn-primary");
+		PO_LoginView.fillForm(UserList.usuarios(0).email, UserList.usuarios(0).password);
+		PO_HomeView.clickOption("logout", "class", "btn btn-primary");
+		PO_View.checkNoElement("Desconectarse");
 	}
 
 }

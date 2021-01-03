@@ -18,16 +18,16 @@ public class PO_NavView extends PO_View {
 	 * @param textoDestino: texto correspondiente a la búsqueda de la página
 	 *        destino.
 	 */
-	public static void clickOption(WebDriver driver, String textOption, String criterio, String textoDestino) {
+	public static void clickOption(String textOption, String criterio, String textoDestino) {
 		// CLickamos en la opción de registro y esperamos a que se cargue el enlace de
 		// Registro.
-		List<WebElement> elementos = SeleniumUtils.EsperaCargaPagina(driver, "@href", textOption, getTimeout());
+		List<WebElement> elementos = SeleniumUtils.EsperaCargaPagina("@href", textOption, getTimeout());
 		// Tiene que haber un sólo elemento.
 		assertTrue(elementos.size() == 1);
 		// Ahora lo clickamos
 		elementos.get(0).click();
 		// Esperamos a que sea visible un elemento concreto
-		elementos = SeleniumUtils.EsperaCargaPagina(driver, criterio, textoDestino, getTimeout());
+		elementos = SeleniumUtils.EsperaCargaPagina(criterio, textoDestino, getTimeout());
 		// Tiene que haber un sólo elemento.
 		assertTrue(elementos.size() == 1);
 	}
@@ -39,15 +39,15 @@ public class PO_NavView extends PO_View {
 	 * @param textLanguage: el texto que aparece en el enlace de idioma ("English" o
 	 *        "Spanish")
 	 */
-	public static void changeIdiom(WebDriver driver, String textLanguage) {
+	public static void changeIdiom(String textLanguage) {
 		// clickamos la opción Idioma.
-		List<WebElement> elementos = SeleniumUtils.EsperaCargaPagina(driver, "id", "btnLanguage", getTimeout());
+		List<WebElement> elementos = SeleniumUtils.EsperaCargaPagina("id", "btnLanguage", getTimeout());
 		elementos.get(0).click();
 		// Esperamos a que aparezca el menú de opciones.
-		elementos = SeleniumUtils.EsperaCargaPagina(driver, "id", "languageDropdownMenuButton", getTimeout());
+		elementos = SeleniumUtils.EsperaCargaPagina("id", "languageDropdownMenuButton", getTimeout());
 		// SeleniumUtils.esperarSegundos(driver, 2);
 		// CLickamos la opción Inglés partiendo de la opción Español
-		elementos = SeleniumUtils.EsperaCargaPagina(driver, "id", textLanguage, getTimeout());
+		elementos = SeleniumUtils.EsperaCargaPagina("id", textLanguage, getTimeout());
 		elementos.get(0).click();
 	}
 }
