@@ -21,8 +21,9 @@ import com.uniovi.tests.ejercicios.*;
 	EjercicioW06_Tests.class,
 	EjercicioW07_Tests.class,
 	EjercicioW08_Tests.class,
+	EjercicioW09_Tests.class,
 	//*/
-	EjercicioW09_Tests.class	
+	EjercicioW10_Tests.class	
 })
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class MySocialNetwork_Tests {

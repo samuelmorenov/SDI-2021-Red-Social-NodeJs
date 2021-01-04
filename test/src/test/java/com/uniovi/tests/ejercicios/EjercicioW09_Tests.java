@@ -8,7 +8,6 @@ import com.uniovi.tests.pageobjects.PO_Invitation;
 import com.uniovi.tests.pageobjects.PO_LoginView;
 import com.uniovi.tests.pageobjects.PO_PrivateView;
 import com.uniovi.tests.pageobjects.PO_View;
-import com.uniovi.tests.util.SeleniumUtils;
 
 public class EjercicioW09_Tests extends BaseTests {
 	/**
