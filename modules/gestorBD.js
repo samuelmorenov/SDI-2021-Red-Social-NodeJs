@@ -102,4 +102,58 @@ module.exports = {
         });
     },
 
+    borrarInvitacion : function(invitacion, funcionCallback) {
+        this.mongo.MongoClient.connect(this.app.get('db'), function(err, db) {
+            if (err) {
+                funcionCallback(null);
+            } else {
+                let collection = db.collection('invitaciones');
+                collection.deleteOne(invitacion, function(err, obj) {
+                    if (err) {
+                        funcionCallback(null);
+                    } else {
+                        funcionCallback(obj);
+                    }
+                    db.close();
+                });
+            }
+        });
+    },
+
+    obtenerInvitacion: function (criterio, funcionCallback) {
+        this.mongo.MongoClient.connect(this.app.get('db'), function (err, db) {
+            if (err) {
+                funcionCallback(null);
+            } else {
+                let collection = db.collection('invitaciones');
+                collection.find(criterio).toArray(function (err, invitaciones) {
+                    if (err) {
+                        funcionCallback(null);
+                    } else {
+                        funcionCallback(invitaciones);
+                    }
+                    db.close();
+                });
+            }
+        });
+    },
+
+    insertarAmistad: function (amistad, funcionCallback) {
+        this.mongo.MongoClient.connect(this.app.get('db'), function (err, db) {
+            if (err) {
+                funcionCallback(null);
+            } else {
+                let collection = db.collection('amistades');
+                collection.insert(amistad, function (err, result) {
+                    if (err) {
+                        funcionCallback(null);
+                    } else {
+                        funcionCallback(result.ops[0]._id);
+                    }
+                    db.close();
+                });
+            }
+        });
+    },
+
 };

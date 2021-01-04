@@ -20,8 +20,8 @@ import com.uniovi.tests.ejercicios.*;
 	EjercicioW05_Tests.class,
 	EjercicioW06_Tests.class,
 	EjercicioW07_Tests.class,
-	//*/
 	EjercicioW08_Tests.class,
+	//*/
 	EjercicioW09_Tests.class	
 })
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)

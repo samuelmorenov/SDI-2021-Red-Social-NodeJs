@@ -32,8 +32,7 @@ module.exports = function (app, swig, gestorBD) {
             res.redirect('/login');
             return;
         }
-        let criterio = {"receptorEmail": req.session.usuario};
-        criterio = {};
+        let criterio = {receptorEmail: req.session.usuario};
 
         //Obtenemos el numero de pagina de la query
         let pg = parseInt(req.query.pg); // Es String !!!
@@ -90,7 +89,56 @@ module.exports = function (app, swig, gestorBD) {
                 }
             }
         );
+    });
 
+    app.post('/invitations/accept', function (req, res) {
+        if (req.body.email == null) {
+            req.session.error = "Error: No se ha podido obtener el email";
+            res.redirect('/error');
+            return;
+        }
+        if (req.session.usuario == null) {
+            res.redirect('/login');
+            return;
+        }
+        let amistad = {
+            usuario1Email: req.session.usuario,
+            usuario2Email: req.body.email
+        };
+        let invitacion = {
+            emisorEmail: req.body.email,
+            receptorEmail: req.session.usuario
+        };
+        gestorBD.obtenerInvitacion(invitacion, function (invitaciones) {
+            if (invitaciones == null || invitaciones.length == 0) {
+                req.session.error = "Error: No se ha podido acceder a las invitaciones guardadas";
+                res.redirect('/error');
+            } else {
+                console.log(invitaciones)
+                let id = invitaciones[0]._id;
+                invitacion = { _id : id };
+
+                gestorBD.insertarAmistad(amistad, function (id) {
+                    if (id == null) {
+                        req.session.error = "Error: No se ha podido guardar la amistad en la base de datos";
+                        res.redirect('/error');
+                    } else {
+                        console.log('Añadida amistad ' + amistad);
+
+                        gestorBD.borrarInvitacion(invitacion, function (result) {
+                            if (result == null) {
+                                req.session.error = "Error: No se ha podido borrar la invitacion de la base de datos";
+                                res.redirect('/error');
+                            } else {
+                                console.log('Borrada invitacion ' + invitacion + ' ' + result);
+                                res.redirect('/invitations');
+                            }
+                        });
+                    }
+
+                });
+            }
+        });
 
     });
 }
