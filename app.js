@@ -114,17 +114,17 @@ app.use(function (err, req, res, next) {
     }
 });
 
+// Aplicar RouterUsuarioSession
+app.use("/users", routerUsuarioSession);
+app.use("/invitations/**", routerUsuarioSession);
+app.use("/friends/**", routerUsuarioSession);
+
 // Establecimiento de rutas
 require("./routes/rLogInSignUp.js")(app, swig, gestorBD);
 require("./routes/rUsers.js")(app, swig, gestorBD);
 require("./routes/rInvitations.js")(app, swig, gestorBD);
 require("./routes/rFriends.js")(app, swig, gestorBD);
 require("./routes/rTests.js")(app, mongo);
-
-
-// Aplicar routerUsuarioToken TODO
-
-// Aplicar RouterUsuarioSession TODO
 
 // Arrancamos el servidor
 let fs = require('fs');

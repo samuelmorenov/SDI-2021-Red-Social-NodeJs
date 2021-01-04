@@ -1,10 +1,11 @@
 package com.uniovi.tests.ejercicios;
 
-import static org.junit.Assert.fail;
-
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
+
+import com.uniovi.tests.DriverSingleton;
+import com.uniovi.tests.pageobjects.PO_View;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class EjercicioW10_Tests extends BaseTests {
@@ -14,10 +15,8 @@ public class EjercicioW10_Tests extends BaseTests {
 	 */
 	@Test
 	public void Prueba_20() {
-		fail("Not yet implemented");
-//		driver.navigate().to(URL + "/user/list");
-//		PO_View.checkKey(driver, "login.login", PO_Properties.getSPANISH());
-//		PO_View.checkNoKey(driver, "list.intro", PO_Properties.getSPANISH());
+		DriverSingleton.getDriver().navigate().to(URL + "/users");
+		PO_View.checkElement("text", "Identificación de usuario");
 	}
 
 	/**
@@ -27,10 +26,8 @@ public class EjercicioW10_Tests extends BaseTests {
 	 */
 	@Test
 	public void Prueba_21() {
-		fail("Not yet implemented");
-//		driver.navigate().to(URL + "/friend/invitationlist");
-//		PO_View.checkKey(driver, "login.login", PO_Properties.getSPANISH());
-//		PO_View.checkNoKey(driver, "invitationlist.title", PO_Properties.getSPANISH());
+		DriverSingleton.getDriver().navigate().to(URL + "/users");
+		PO_View.checkElement("text", "Identificación de usuario");
 	}
 
 	/**
@@ -39,6 +36,7 @@ public class EjercicioW10_Tests extends BaseTests {
 	 */
 	@Test
 	public void Prueba_22() {
-		fail("Not yet implemented");
+		DriverSingleton.getDriver().navigate().to(URL + "/invitations");
+		PO_View.checkElement("text", "Identificación de usuario");
 	}
 }
