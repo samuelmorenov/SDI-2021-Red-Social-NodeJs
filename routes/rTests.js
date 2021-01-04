@@ -9,6 +9,16 @@ module.exports = function (app, mongo) {
             if (err) {
                 res.send(String("Error al resetear la BD."));
             } else {
+                //Eliminamos todas las amistades del sistema
+                collection = db.collection('amistades');
+                criterio = {};
+                collection.remove(criterio, function (err, result) {
+                    if (err) {
+                        db.close();
+                        res.send(String("Error al resetear la BD."));
+                    }
+                });
+
                 //Eliminamos todas las invitaciones del sistema
                 collection = db.collection('invitaciones');
                 criterio = {};
