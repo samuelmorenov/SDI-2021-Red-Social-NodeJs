@@ -8,6 +8,10 @@ import com.uniovi.tests.DriverSingleton;
 public class BaseTests {
 
 	protected static String URL = "https://localhost:8081";
+	
+	protected static String randomEmail() {
+		return "correo" + Integer.toString((int) (100000 * Math.random())) + "@email.es";
+	}
 
 	// Antes de cada prueba se navega al URL home de la aplicaciónn
 	@Before

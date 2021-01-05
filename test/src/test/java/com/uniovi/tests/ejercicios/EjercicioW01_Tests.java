@@ -11,10 +11,6 @@ import com.uniovi.tests.pageobjects.PO_View;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class EjercicioW01_Tests extends BaseTests {
-	
-	private static String randomEmail() {
-		return "correo" + Integer.toString((int) (100000 * Math.random())) + "@email.es";
-	}
 
 	/** Registro de Usuario con datos válidos. */
 	@Test
