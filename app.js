@@ -119,12 +119,18 @@ app.use("/users", routerUsuarioSession);
 app.use("/invitations/**", routerUsuarioSession);
 app.use("/friends/**", routerUsuarioSession);
 
-// Establecimiento de rutas
-require("./routes/rLogInSignUp.js")(app, swig, gestorBD);
-require("./routes/rUsers.js")(app, swig, gestorBD);
-require("./routes/rInvitations.js")(app, swig, gestorBD);
-require("./routes/rFriends.js")(app, swig, gestorBD);
-require("./routes/rTests.js")(app, mongo);
+// Establecimiento de Rutas
+//Rutas de la Aplicacion web
+require("./routes/aplicacionWeb/rLogInSignUp.js")(app, swig, gestorBD);
+require("./routes/aplicacionWeb/rUsers.js")(app, swig, gestorBD);
+require("./routes/aplicacionWeb/rInvitations.js")(app, swig, gestorBD);
+require("./routes/aplicacionWeb/rFriends.js")(app, swig, gestorBD);
+
+//Rutas para los Servicios Web
+require("./routes/serviciosWeb/rUsers")(app, gestorBD);
+
+// Rutas para los Test
+require("./routes/test/rTests.js")(app, mongo);
 
 // Arrancamos el servidor
 let fs = require('fs');

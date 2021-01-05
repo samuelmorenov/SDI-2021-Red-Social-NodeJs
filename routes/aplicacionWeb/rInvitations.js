@@ -114,7 +114,6 @@ module.exports = function (app, swig, gestorBD) {
                 req.session.error = "Error: No se ha podido acceder a las invitaciones guardadas";
                 res.redirect('/error');
             } else {
-                console.log(invitaciones)
                 let id = invitaciones[0]._id;
                 invitacion = { _id : id };
 
@@ -123,14 +122,11 @@ module.exports = function (app, swig, gestorBD) {
                         req.session.error = "Error: No se ha podido guardar la amistad en la base de datos";
                         res.redirect('/error');
                     } else {
-                        console.log('Añadida amistad ' + amistad);
-
                         gestorBD.borrarInvitacion(invitacion, function (result) {
                             if (result == null) {
                                 req.session.error = "Error: No se ha podido borrar la invitacion de la base de datos";
                                 res.redirect('/error');
                             } else {
-                                console.log('Borrada invitacion ' + invitacion + ' ' + result);
                                 res.redirect('/invitations');
                             }
                         });
