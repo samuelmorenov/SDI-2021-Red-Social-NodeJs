@@ -114,13 +114,17 @@ app.use(function (err, req, res, next) {
     }
 });
 
-// Aplicar RouterUsuarioSession
+// Aplicar RouterUsuarioSession para los Servicios Web
+
 app.use("/users", routerUsuarioSession);
 app.use("/invitations/**", routerUsuarioSession);
 app.use("/friends/**", routerUsuarioSession);
 
+// Aplicar RouterUsuarioSession para la Aplicacion web
+app.use('/api/cancion', routerUsuarioToken);
+
 // Establecimiento de Rutas
-//Rutas de la Aplicacion web
+//Rutas para la Aplicacion web
 require("./routes/aplicacionWeb/rLogInSignUp.js")(app, swig, gestorBD);
 require("./routes/aplicacionWeb/rUsers.js")(app, swig, gestorBD);
 require("./routes/aplicacionWeb/rInvitations.js")(app, swig, gestorBD);
