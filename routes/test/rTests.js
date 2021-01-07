@@ -58,6 +58,20 @@ module.exports = function (app, mongo) {
                     }
                 });
 
+                let amistades =
+                    [
+                        {usuario1Email: "pelayo@email.com", usuario2Email: "pedro@email.com"},
+                        {usuario1Email: "pelayo@email.com", usuario2Email: "lucas@email.com"},
+                        {usuario1Email: "pelayo@email.com", usuario2Email: "marta@email.com"}
+                    ];
+                collection = db.collection('amistades');
+                collection.insertMany(amistades, function (err, result) {
+                    if (err) {
+                        db.close();
+                        res.send(String("Error al resetear la BD."));
+                    }
+                });
+
                 res.send(String("Base de datos reiniciada."));
                 db.close();
             }

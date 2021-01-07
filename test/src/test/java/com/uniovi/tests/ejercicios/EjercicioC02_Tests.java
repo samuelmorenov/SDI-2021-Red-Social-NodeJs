@@ -6,15 +6,25 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
+import com.uniovi.tests.data.UserList;
+import com.uniovi.tests.pageobjects.PO_HomeView;
+import com.uniovi.tests.pageobjects.PO_LoginView;
+import com.uniovi.tests.pageobjects.PO_Search;
+import com.uniovi.tests.pageobjects.PO_View;
+
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class EjercicioC02_Tests extends BaseTests {
+public class EjercicioC02_Tests extends BaseTestsApi {
 
 	/**
 	 * Acceder a la lista de amigos de un usuario, que al menos tenga tres amigos.
 	 */
 	@Test
 	public void Prueba_25() {
-		fail("Not yet implemented");
+		PO_LoginView.fillForm(UserList.usuarios(4).email, UserList.usuarios(4).password);
+		PO_View.checkElement("text", "Los usuarios que actualmente figuran en el sistema son los siguientes:");
+		PO_View.checkElement("text", UserList.usuarios(0).email);
+		PO_View.checkElement("text", UserList.usuarios(1).email);
+		PO_View.checkElement("text", UserList.usuarios(3).email);
 	}
 
 	/**
@@ -25,7 +35,10 @@ public class EjercicioC02_Tests extends BaseTests {
 	
 	@Test
 	public void Prueba_26() {
-		fail("Not yet implemented");
+		PO_LoginView.fillForm(UserList.usuarios(4).email, UserList.usuarios(4).password);
+		PO_View.checkElement("text", UserList.usuarios(3).name);
+		PO_View.checkNoElement(UserList.usuarios(0).name);
+		PO_View.checkNoElement(UserList.usuarios(1).name);
 	}
 
 }
