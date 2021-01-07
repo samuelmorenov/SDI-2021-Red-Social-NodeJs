@@ -12,12 +12,12 @@ $('#boton-login').click(function () {
             console.log(respuesta.token);
             token = respuesta.token;
             Cookies.set('token', respuesta.token);
-            $("#contenedor-principal").load("widget-canciones.html");
+            $("#contenedor-principal").load("widgets/widget-friends.html");
         },
         error: function (error) {
             Cookies.set('token', respuesta.token);
             $("#widget-login")
-                .prepend("<div class='alert alert-danger'>Usuario no encontrado</div>");
+                .prepend("<div class='alert alert-danger'>La combinacion usuario-contraseña es incorrecta.</div>");
         }
     });
 });

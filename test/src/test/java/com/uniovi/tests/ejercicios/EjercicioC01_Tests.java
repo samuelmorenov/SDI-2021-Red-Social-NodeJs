@@ -17,7 +17,7 @@ public class EjercicioC01_Tests extends BaseTestsApi {
 	@Test
 	public void Prueba_23() {
 		PO_LoginView.fillForm(UserList.usuarios(0).email, UserList.usuarios(0).password);
-		PO_View.checkElement("text", "Los usuarios que actualmente figuran en el sistema son los siguientes:");
+		PO_View.checkElement("text", "Lista de amigos");
 
 	}
 
