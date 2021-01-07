@@ -15,7 +15,7 @@ $('#boton-login').click(function () {
             $("#contenedor-principal").load("widgets/widget-friends.html");
         },
         error: function (error) {
-            Cookies.set('token', respuesta.token);
+            Cookies.remove('token');
             $("#widget-login")
                 .prepend("<div class='alert alert-danger'>La combinacion usuario-contraseña es incorrecta.</div>");
         }
