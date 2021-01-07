@@ -1,5 +1,26 @@
 <div id="widget-friends">
     <h2>Lista de amigos</h2>
 
+    <div>
+        <input name="busqueda" type="text" class="form-control" size="50"
+               placeholder="Buscar por nombre" id="input-buscar">
+        <button type="submit" class="btn btn-default" id="button-buscar">Buscar</button>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>Email</th>
+                <th>Nombre</th>
+                <th>Apellidos</th>
+            </tr>
+            </thead>
+            <tbody id="tbody-friends">
+
+            </tbody>
+        </table>
+    </div>
+
     <script src="widgets/widget-friends.js"></script>
 </div>
