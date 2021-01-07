@@ -25,6 +25,7 @@ import com.uniovi.tests.ejercicios.*;
 	EjercicioW10_Tests.class,
 	/*/
 	EjercicioC01_Tests.class,
+	/*/
 	EjercicioC02_Tests.class,
 	EjercicioC03_Tests.class,
 	EjercicioC04_Tests.class

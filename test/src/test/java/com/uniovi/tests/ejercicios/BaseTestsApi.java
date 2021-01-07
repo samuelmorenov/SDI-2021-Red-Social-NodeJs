@@ -5,13 +5,9 @@ import org.junit.Before;
 
 import com.uniovi.tests.DriverSingleton;
 
-public class BaseTests {
+public class BaseTestsApi {
 
-	protected static String URL = "https://localhost:8081";
-	
-	protected static String randomEmail() {
-		return "correo" + Integer.toString((int) (100000 * Math.random())) + "@email.es";
-	}
+	protected static String URL = "https://localhost:8081/cliente.html";
 
 	// Antes de cada prueba se navega al URL home de la aplicaciónn
 	@Before
