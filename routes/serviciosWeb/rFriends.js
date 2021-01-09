@@ -3,8 +3,6 @@ module.exports = function (app, gestorBD) {
     app.get("/api/friends/", function(req, res) {
 
         let userEmail = res.usuario;
-
-        console.log("userEmail: "+userEmail);
         let criterio = {
             $or:
                 [

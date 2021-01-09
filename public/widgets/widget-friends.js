@@ -1,10 +1,10 @@
 window.history.pushState("", "", "/cliente.html?w=friends");
 
+var friends;
+
 this.loadFriends();
 
 function loadFriends() {
-    //var token = Cookies.get('token');
-
     $.ajax({
         url: URLbase + "/friends",
         type: "GET",
@@ -34,3 +34,14 @@ function friendsTable(friends) {
     }
 }
 
+$('#button-buscar').click(function () {
+    var friendsFiltereds = [];
+    var inputName = $("#input-buscar").val();
+
+    for (i = 0; i < friends.length; i++) {
+        if(friends[i].name.includes(inputName)){
+            friendsFiltereds.push(friends[i]);
+        }
+    }
+    friendsTable(friendsFiltereds);
+});

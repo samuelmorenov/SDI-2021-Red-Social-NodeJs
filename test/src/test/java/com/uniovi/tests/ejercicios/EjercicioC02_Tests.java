@@ -6,6 +6,7 @@ import org.junit.runners.MethodSorters;
 
 import com.uniovi.tests.data.UserList;
 import com.uniovi.tests.pageobjects.PO_LoginView;
+import com.uniovi.tests.pageobjects.PO_Search;
 import com.uniovi.tests.pageobjects.PO_View;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
@@ -32,6 +33,8 @@ public class EjercicioC02_Tests extends BaseTestsApi {
 	@Test
 	public void Prueba_26() {
 		PO_LoginView.fillForm(UserList.usuarios(4).email, UserList.usuarios(4).password);
+		PO_View.checkElement("text", UserList.usuarios(3).name);
+		PO_Search.search(UserList.usuarios(3).name);
 		PO_View.checkElement("text", UserList.usuarios(3).name);
 		PO_View.checkNoElement(UserList.usuarios(0).name);
 		PO_View.checkNoElement(UserList.usuarios(1).name);
