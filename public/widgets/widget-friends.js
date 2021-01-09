@@ -29,15 +29,24 @@ function friendsTable(friends) {
             "<td>" + friends[i].name + "</td>" +
             "<td>" + friends[i].lastName + "</td>" +
             "<td>" + friends[i].email + "</td>" +
-            "<td>" +
-                "<button type='submit' className='btn btn-default' " +
-                "id='button-chat-" + friends[i].email + "' "+
-                "onclick=chat('" + friends[i].email + "')" +
-                ">" + "✉</button>" +
-            "</td>" +
+            "<td>" + this.createButton(friends[i]) + "</td>" +
             "</tr>"
-        );
+        )
+        ;
     }
+}
+
+function createButton(friend) {
+    var email = friend.email;
+    var name = friend.name;
+    var lastName = friend.lastName;
+    var parametros = "\'" + email + "\'" + "," + "\'" + name + "\'" + "," + "\'" + lastName + "\'";
+    var button =
+        "<button type='submit' className='btn btn-default' " +
+        "id='button-chat-" + email + "' " +
+        "onclick=chat(" + parametros + ")>" +
+        "✉</button>";
+    return button;
 }
 
 $('#button-buscar').click(function () {
@@ -52,6 +61,11 @@ $('#button-buscar').click(function () {
     friendsTable(friendsFiltereds);
 });
 
-function chat(friendEmail) {
+function chat(friendEmail, friendName, friendLastName) {
+    friend = {
+        email : friendEmail,
+        name : friendName,
+        lastname : friendLastName
+    };
     $("#contenedor-principal").load("widgets/widget-chat.html");
 }
