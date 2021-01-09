@@ -1,0 +1,1 @@
+window.history.pushState("", "", "/cliente.html?w=chat/");
