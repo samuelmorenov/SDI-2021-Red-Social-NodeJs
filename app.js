@@ -121,8 +121,7 @@ app.use("/invitations/**", routerUsuarioSession);
 app.use("/friends/**", routerUsuarioSession);
 
 // Aplicar RouterUsuarioSession para la Aplicacion web
-app.use('/api/login/**', routerUsuarioToken);
-app.use('/api/friends/**', routerUsuarioToken);
+app.use('/api/friends', routerUsuarioToken);
 
 // Establecimiento de Rutas
 //Rutas para la Aplicacion web
