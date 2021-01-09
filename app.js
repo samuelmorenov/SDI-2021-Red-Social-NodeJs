@@ -133,6 +133,7 @@ require("./routes/aplicacionWeb/rFriends.js")(app, swig, gestorBD);
 //Rutas para los Servicios Web
 require("./routes/serviciosWeb/rUsers")(app, gestorBD);
 require("./routes/serviciosWeb/rFriends")(app, gestorBD);
+require("./routes/serviciosWeb/rChats")(app, gestorBD);
 
 // Rutas para los Test
 require("./routes/test/rTests.js")(app, mongo);

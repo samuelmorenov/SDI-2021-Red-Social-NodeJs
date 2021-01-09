@@ -29,6 +29,16 @@ module.exports = function (app, mongo) {
                     }
                 });
 
+                //Eliminamos todos los chats del sistema
+                collection = db.collection('chats');
+                criterio = {};
+                collection.remove(criterio, function (err, result) {
+                    if (err) {
+                        db.close();
+                        res.send(String("Error al resetear la BD."));
+                    }
+                });
+
                 //Eliminamos todos los usuarios del sistema
                 collection = db.collection('usuarios');
                 criterio = {};

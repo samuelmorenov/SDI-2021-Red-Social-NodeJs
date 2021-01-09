@@ -1,5 +1,6 @@
 var token;
 var URLbase = "https://localhost:8081/api";
+var user = "";
 var friend = {};
 
 $("#contenedor-principal").load("widgets/widget-login.html");

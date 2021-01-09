@@ -10,11 +10,13 @@ $('#boton-login').click(function () {
         dataType: 'json',
         success: function (respuesta) {
             token = respuesta.token;
+            user = $("#email").val();
             Cookies.set('token', respuesta.token);
             $("#contenedor-principal").load("widgets/widget-friends.html");
         },
         error: function (error) {
             Cookies.remove('token');
+            user = "";
             $("#widget-login")
                 .prepend("<div class='alert alert-danger'>La combinacion usuario-contraseña es incorrecta.</div>");
         }
