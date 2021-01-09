@@ -121,7 +121,8 @@ app.use("/invitations/**", routerUsuarioSession);
 app.use("/friends/**", routerUsuarioSession);
 
 // Aplicar RouterUsuarioSession para la Aplicacion web
-app.use('/api/cliente/**', routerUsuarioToken);
+app.use('/api/login/**', routerUsuarioToken);
+app.use('/api/friends/**', routerUsuarioToken);
 
 // Establecimiento de Rutas
 //Rutas para la Aplicacion web
@@ -132,6 +133,7 @@ require("./routes/aplicacionWeb/rFriends.js")(app, swig, gestorBD);
 
 //Rutas para los Servicios Web
 require("./routes/serviciosWeb/rUsers")(app, gestorBD);
+require("./routes/serviciosWeb/rFriends")(app, gestorBD);
 
 // Rutas para los Test
 require("./routes/test/rTests.js")(app, mongo);

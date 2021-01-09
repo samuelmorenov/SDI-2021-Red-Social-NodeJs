@@ -1,7 +1,7 @@
 window.history.pushState("", "", "/cliente.html?w=login");
 $('#boton-login').click(function () {
     $.ajax({
-        url: URLbase + "/autenticar",
+        url: URLbase + "/login",
         type: "POST",
         data: {
             email: $("#email").val(),
@@ -9,7 +9,6 @@ $('#boton-login').click(function () {
         },
         dataType: 'json',
         success: function (respuesta) {
-            console.log(respuesta.token);
             token = respuesta.token;
             Cookies.set('token', respuesta.token);
             $("#contenedor-principal").load("widgets/widget-friends.html");
