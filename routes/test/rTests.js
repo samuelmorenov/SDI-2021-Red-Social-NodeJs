@@ -50,6 +50,8 @@ module.exports = function (app, mongo) {
                 });
 
                 //Si se han eliminado todos insertamos los nuevos
+
+                //Añadimos los usuarios
                 let seguro = app.get("crypto").createHmac('sha256', app.get('clave'))
                     .update("123456").digest('hex');
                 let usuarios =
@@ -68,6 +70,7 @@ module.exports = function (app, mongo) {
                     }
                 });
 
+                //Añadimos las amistades
                 let amistades =
                     [
                         {usuario1Email: "pelayo@email.com", usuario2Email: "pedro@email.com"},
@@ -76,6 +79,22 @@ module.exports = function (app, mongo) {
                     ];
                 collection = db.collection('amistades');
                 collection.insertMany(amistades, function (err, result) {
+                    if (err) {
+                        db.close();
+                        res.send(String("Error al resetear la BD."));
+                    }
+                });
+
+                //Añadimos los chats
+                let mensajes =
+                    [
+                        {text: "Hola Pedro, ¿qué tal?", emisor: "pelayo@email.com", receptor: "pedro@email.com"},
+                        {text: "Hola Pelayo, yo muy bien, y tu ¿qué tal?", emisor: "pedro@email.com", receptor: "pelayo@email.com"},
+                        {text: "Bien tambien, a ver si nos vemos", emisor: "pelayo@email.com", receptor: "pedro@email.com"},
+                        {text: "Pues sí, un dia de estos", emisor: "pedro@email.com", receptor: "pelayo@email.com"}
+                    ];
+                collection = db.collection('chats');
+                collection.insertMany(mensajes, function (err, result) {
                     if (err) {
                         db.close();
                         res.send(String("Error al resetear la BD."));
