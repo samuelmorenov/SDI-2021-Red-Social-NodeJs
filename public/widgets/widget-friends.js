@@ -1,7 +1,5 @@
 window.history.pushState("", "", "/cliente.html?w=friends");
 
-var friends;
-
 this.loadFriends();
 
 function loadFriends() {
