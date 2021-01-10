@@ -1,7 +1,6 @@
 package com.uniovi.tests;
 
 import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
@@ -29,14 +28,6 @@ import com.uniovi.tests.ejercicios.*;
 })
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class MySocialNetwork_Tests {
-
-	// Antes de la primera prueba
-	@BeforeClass
-	static public void begin() {
-		DriverSingleton.setDriver();
-		//Para que no se resetee la base de datos comentar esta linea
-		DriverSingleton.getDriver().navigate().to("https://localhost:8081/test/resetDB");
-	}
 
 	// Al finalizar la última prueba
 	@AfterClass

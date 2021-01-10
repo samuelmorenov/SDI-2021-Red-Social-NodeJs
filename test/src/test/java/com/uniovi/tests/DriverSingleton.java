@@ -19,6 +19,11 @@ public class DriverSingleton {
 	}
 
 	public static WebDriver getDriver() {
+		if(driver == null) {
+			DriverSingleton.setDriver();
+			//Para que no se resetee la base de datos comentar esta linea
+			driver.navigate().to("https://localhost:8081/test/resetDB");
+		}		
 		return driver;
 	}
 
